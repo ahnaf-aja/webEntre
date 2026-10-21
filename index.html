@@ -679,7 +679,7 @@
             Chat BINUS Rent dan kami bantu cari perlengkapan yang kamu butuhkan.
           </p>
           <div class="pt-4">
-            <a href="https://wa.me/27624358029?text=Halo%20BINUS%20Rent%20%F0%9F%90%8B%0ASaya%20ingin%20bertanya%20mengenai%20penyewaan%20barang." 
+            <a href="https://wa.me/6287883393238?text=Halo%20BINUS%20Rent%20Saya%20ingin%20bertanya%20mengenai%20penyewaan%20barang." 
                target="_blank"
                class="inline-flex items-center gap-3 px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-2xl shadow-lg transition-all text-base group">
               <i class="fa-brands fa-whatsapp text-2xl group-hover:scale-110 transition-transform"></i>
@@ -724,21 +724,31 @@
         </div>
 
         <!-- Col 3: Contact -->
-        <div>
-          <h4 class="text-white font-semibold text-sm mb-4">Hubungi Kami</h4>
-          <ul class="space-y-2.5 text-sm">
-            <li class="flex items-center gap-2">
-              <i class="fa-brands fa-whatsapp text-emerald-400"></i>
-              <a href="https://wa.me/27624358029" target="_blank" class="hover:text-white transition-colors">+27 62 435 8029</a>
-            </li>
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-location-dot text-binus"></i>
-              <span>Area BINUS University</span>
-            </li>
-          </ul>
-        </div>
+       <div>
+  <h4 class="text-white font-semibold text-sm mb-4">Hubungi Kami</h4>
+  <ul class="space-y-2.5 text-sm">
+    <li class="flex items-center gap-2">
+      <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+      <a href="https://wa.me/6287883393238" target="_blank" rel="noopener noreferrer"
+         class="hover:text-white transition-colors">
+        +62 878 8339 3238
+      </a>
+    </li>
 
-      </div>
+    <li class="flex items-center gap-2">
+      <i class="fa-brands fa-instagram text-pink-400"></i>
+      <a href="https://www.instagram.com/rentforbinus/" target="_blank" rel="noopener noreferrer"
+         class="hover:text-white transition-colors">
+        @rentforbinus
+      </a>
+    </li>
+
+    <li class="flex items-center gap-2">
+      <i class="fa-solid fa-location-dot text-binus"></i>
+      <span>Area BINUS University</span>
+    </li>
+  </ul>
+</div>
 
       <!-- Copyright -->
       <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
@@ -769,7 +779,7 @@
   <!-- JAVASCRIPT LOGIC -->
   <script>
     // Target WhatsApp Number
-    const WA_NUMBER = "27624358029";
+    const WA_NUMBER = "6287883393238";
 
     // Standardized Central Product Database (20 high-fidelity items)
     const products = [
@@ -1060,9 +1070,9 @@
       {
         id: "pkg-1",
         name: "EXAM KIT",
-        items: ["Scientific Calculator", "Basic Calculator"],
-        price: "Rp20.000/hari",
-        saveBadge: "Hemat Rp3.000",
+        items: ["Scientific Calculator", "Laptop Charger"],
+        price: "25.000/hari",
+        saveBadge: "Hemat Rp10.000",
         icon: "fa-solid fa-graduation-cap",
         color: "bg-blue-50 text-binus border-blue-200"
       },
@@ -1517,12 +1527,12 @@
 
     // Dynamic WhatsApp URL Generator for Individual Products
     function quickOrder(productName, productPrice) {
-      const message = `Halo BINUS Rent 👋
+      const message = `Halo BINUS Rent
 
 Saya ingin menyewa barang berikut:
 
-📦 Barang: ${productName}
-💰 Harga Sewa: ${productPrice}
+ Barang: ${productName}
+ Harga Sewa: ${productPrice}
 
 Nama:
 BINUSIAN ID:
@@ -1540,12 +1550,12 @@ Terima kasih.`;
 
     // Dynamic WhatsApp URL Generator for Rental Packages
     function orderPackage(packageName, packagePrice) {
-      const message = `Halo BINUS Rent 👋
+      const message = `Halo BINUS Rent
 
 Saya ingin menyewa paket berikut:
 
-📦 Paket: ${packageName}
-💰 Harga Sewa: ${packagePrice}
+Paket: ${packageName}
+Harga Sewa: ${packagePrice}
 
 Nama:
 BINUSIAN ID:
