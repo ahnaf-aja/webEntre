@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BINUS Rent - Academic Equipment Rental</title>
+  <title>MahaSewa - Academic Equipment Rental</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236E8BDD'/%3E%3Cstop offset='.45' stop-color='%232A4FBA'/%3E%3Cstop offset='1' stop-color='%23162C74'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='28' fill='url(%23g)'/%3E%3Cpath d='M28 73V30l22 22 22-22v43' fill='none' stroke='%23fff' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='72' r='4.5' fill='%237FB2FF'/%3E%3C/svg%3E">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -19,6 +20,11 @@
               light: '#EFF6FF',
               subtle: '#F8FAFC',
               orange: '#FF8A00'
+            },
+            maha: {
+              navy: '#0B1B3F',
+              blue: '#2449B0',
+              sky: '#7FB2FF'
             }
           },
           fontFamily: {
@@ -215,21 +221,37 @@
 </head>
 <body class="antialiased text-slate-800 bg-white selection:bg-binus selection:text-white">
 
+  <!-- MahaSewa Logo Mark (reusable SVG symbol) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="maha-grad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#6E8BDD"/>
+        <stop offset="45%" stop-color="#2A4FBA"/>
+        <stop offset="100%" stop-color="#162C74"/>
+      </linearGradient>
+      <symbol id="mahasewa-mark" viewBox="0 0 100 100">
+        <rect x="0" y="0" width="100" height="100" rx="28" fill="url(#maha-grad)"/>
+        <path d="M28 73 V30 L50 52 L72 30 V73" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="50" cy="72" r="4.5" fill="#7FB2FF"/>
+      </symbol>
+    </defs>
+  </svg>
+
   <!-- NAVBAR -->
   <header id="navbar" class="sticky top-0 z-40 w-full glass-nav border-b border-slate-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         
         <!-- Logo -->
-        <a href="#" class="flex items-center gap-2 group">
-          <div class="w-10 h-10 rounded-xl bg-binus flex items-center justify-center text-white font-black text-xl shadow-md shadow-binus/30 group-hover:scale-105 transition-transform">
-            B
-          </div>
-          <div class="flex flex-col">
-            <span class="text-xl font-extrabold tracking-tight text-binus-navy">
-              BINUS<span class="text-binus">Rent</span>
+        <a href="#" class="flex items-center gap-2.5 group" aria-label="MahaSewa Home">
+          <svg class="w-10 h-10 drop-shadow-md group-hover:scale-105 transition-transform" viewBox="0 0 100 100" aria-hidden="true">
+            <use href="#mahasewa-mark"/>
+          </svg>
+          <div class="flex flex-col leading-none">
+            <span class="text-xl font-extrabold tracking-tight">
+              <span class="text-maha-navy">Maha</span><span class="text-maha-blue">Sewa</span>
             </span>
-            <span class="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">CS Academic Equipment</span>
+            <span class="text-[10px] font-semibold tracking-[0.2em] text-slate-500 uppercase mt-1">CS Academic Equipment</span>
           </div>
         </a>
 
@@ -482,7 +504,7 @@
       
       <div class="reveal-item text-center max-w-2xl mx-auto mb-12">
         <span class="px-3 py-1 bg-binus/10 text-binus rounded-full font-bold text-xs uppercase tracking-wider inline-block mb-3">Bundle Savings</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-binus-navy">Paket Hemat BINUS Rent</h2>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-binus-navy">Paket Hemat MahaSewa</h2>
         <p class="text-slate-600 text-sm mt-2">Sewa beberapa barang sekaligus dalam satu paket dengan harga jauh lebih ekonomis!</p>
       </div>
 
@@ -556,7 +578,7 @@
       
       <div class="reveal-item text-center max-w-2xl mx-auto mb-16">
         <span class="text-binus font-bold text-xs uppercase tracking-widest block mb-2">Langkah Mudah</span>
-        <h2 class="text-3xl font-extrabold text-binus-navy">Cara Sewa di BINUS Rent</h2>
+        <h2 class="text-3xl font-extrabold text-binus-navy">Cara Sewa di MahaSewa</h2>
         <p class="text-slate-600 text-sm mt-2">Hanya butuh kurang dari 1 menit untuk memesan perlengkapan kamu.</p>
       </div>
 
@@ -602,7 +624,7 @@
           </div>
           <h3 class="text-lg font-bold text-binus-navy mb-2">Ambil & Kembalikan</h3>
           <p class="text-slate-600 text-sm leading-relaxed">
-            Atur waktu pengambilan dan pengembalian bersama BINUS Rent.
+            Atur waktu pengambilan dan pengembalian bersama MahaSewa.
           </p>
         </div>
 
@@ -619,13 +641,13 @@
         
         <div class="max-w-3xl relative z-10 space-y-6">
           <span class="px-3 py-1 bg-white/10 text-blue-200 rounded-full text-xs font-semibold tracking-wider uppercase border border-white/10">
-            Tentang BINUS Rent
+            Tentang MahaSewa
           </span>
           <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
             Dibuat Khusus Untuk Kemudahan Mahasiswa Computer Science
           </h2>
           <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-            BINUS Rent hadir untuk membantu mahasiswa mendapatkan akses ke perlengkapan akademik tanpa harus membeli barang yang hanya digunakan sementara.
+            MahaSewa hadir untuk membantu mahasiswa mendapatkan akses ke perlengkapan akademik tanpa harus membeli barang yang hanya digunakan sementara.
           </p>
           <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
             Kami percaya mahasiswa seharusnya dapat menyelesaikan kebutuhan akademiknya dengan lebih praktis dan hemat.
@@ -657,7 +679,7 @@
       <div class="reveal-item text-center mb-12">
         <span class="text-binus font-bold text-xs uppercase tracking-widest block mb-2">Pertanyaan Populer</span>
         <h2 class="text-3xl font-extrabold text-binus-navy">Frequently Asked Questions</h2>
-        <p class="text-slate-600 text-sm mt-2">Segala hal yang perlu kamu ketahui tentang penyewaan di BINUS Rent.</p>
+        <p class="text-slate-600 text-sm mt-2">Segala hal yang perlu kamu ketahui tentang penyewaan di MahaSewa.</p>
       </div>
 
       <!-- Accordion Container -->
@@ -676,10 +698,10 @@
         <div class="relative z-10 max-w-2xl mx-auto space-y-4">
           <h2 class="text-3xl sm:text-4xl font-extrabold">Masih Bingung Butuh Barang Apa?</h2>
           <p class="text-blue-100 text-base sm:text-lg">
-            Chat BINUS Rent dan kami bantu cari perlengkapan yang kamu butuhkan.
+            Chat MahaSewa dan kami bantu cari perlengkapan yang kamu butuhkan.
           </p>
           <div class="pt-4">
-            <a href="https://wa.me/6287883393238?text=Halo%20BINUS%20Rent%20Saya%20ingin%20bertanya%20mengenai%20penyewaan%20barang." 
+            <a href="https://wa.me/6287883393238?text=Halo%20MahaSewa%20Saya%20ingin%20bertanya%20mengenai%20penyewaan%20barang." 
                target="_blank"
                class="inline-flex items-center gap-3 px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-2xl shadow-lg transition-all text-base group">
               <i class="fa-brands fa-whatsapp text-2xl group-hover:scale-110 transition-transform"></i>
@@ -699,12 +721,12 @@
         
         <!-- Col 1: Brand -->
         <div class="md:col-span-2 space-y-4">
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-binus flex items-center justify-center text-white font-black text-lg">
-              B
-            </div>
-            <span class="text-xl font-extrabold text-white tracking-tight">
-              BINUS<span class="text-binus">Rent</span>
+          <div class="flex items-center gap-2.5">
+            <svg class="w-9 h-9" viewBox="0 0 100 100" aria-hidden="true">
+              <use href="#mahasewa-mark"/>
+            </svg>
+            <span class="text-xl font-extrabold tracking-tight">
+              <span class="text-white">Maha</span><span class="text-maha-sky">Sewa</span>
             </span>
           </div>
           <p class="text-sm text-slate-400 max-w-sm leading-relaxed">
@@ -749,10 +771,11 @@
     </li>
   </ul>
 </div>
+      </div>
 
       <!-- Copyright -->
       <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-        <p>&copy; 2026 BINUS Rent. All rights reserved.</p>
+        <p>&copy; 2026 MahaSewa. All rights reserved.</p>
         <p>Built for BINUSIAN Computer Science Students</p>
       </div>
 
@@ -1527,7 +1550,7 @@
 
     // Dynamic WhatsApp URL Generator for Individual Products
     function quickOrder(productName, productPrice) {
-      const message = `Halo BINUS Rent
+      const message = `Halo MahaSewa
 
 Saya ingin menyewa barang berikut:
 
@@ -1550,7 +1573,7 @@ Terima kasih.`;
 
     // Dynamic WhatsApp URL Generator for Rental Packages
     function orderPackage(packageName, packagePrice) {
-      const message = `Halo BINUS Rent
+      const message = `Halo MahaSewa
 
 Saya ingin menyewa paket berikut:
 
