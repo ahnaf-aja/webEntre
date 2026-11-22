@@ -1,227 +1,465 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MahaSewa - Academic Equipment Rental</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236E8BDD'/%3E%3Cstop offset='.45' stop-color='%232A4FBA'/%3E%3Cstop offset='1' stop-color='%23162C74'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='28' fill='url(%23g)'/%3E%3Cpath d='M28 73V30l22 22 22-22v43' fill='none' stroke='%23fff' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='72' r='4.5' fill='%237FB2FF'/%3E%3C/svg%3E">
+  <title>MahaSewa — Sewa Perlengkapan Kuliah Mahasiswa CS BINUS</title>
+  <meta name="description" content="Sewa kalkulator, clicker, adapter HDMI, charger, webcam, dan perlengkapan kuliah lain per hari. Khusus mahasiswa Computer Science BINUS.">
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            binus: {
-              DEFAULT: '#0054A6',
-              dark: '#003A75',
-              navy: '#0F172A',
-              light: '#EFF6FF',
-              subtle: '#F8FAFC',
-              orange: '#FF8A00'
-            },
-            maha: {
-              navy: '#0B1B3F',
-              blue: '#2449B0',
-              sky: '#7FB2FF'
-            }
-          },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Google Font: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --ink: #0B1B3F;
+      --ink-soft: #46536E;
+      --ink-faint: #7A869D;
+      --blue: #2449B0;
+      --blue-deep: #1A3787;
+      --sky: #7FB2FF;
+      --mist: #EEF2F9;
+      --line: #D5DCE8;
+      --paper: #FFFFFF;
+      --tag: #F2B33D;
+      --wa: #1DA851;
+
+      --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+
+      --r-sm: 8px;
+      --r-md: 14px;
+      --r-lg: 22px;
+      --wrap: 1160px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', sans-serif;
-      color: #0F172A;
-      background-color: #FFFFFF;
-      overflow-x: hidden;
+      margin: 0;
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
     }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button { font: inherit; cursor: pointer; }
+    :focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; border-radius: 4px; }
 
-    .glass-nav {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    .icon { width: 1.1em; height: 1.1em; flex-shrink: 0; }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      border: 0;
+      font-weight: 700; font-size: 15px;
+      text-decoration: none;
+      transition: background-color .15s ease, transform .1s ease;
     }
+    .btn:active { transform: translateY(1px); }
+    .btn-wa { background: var(--wa); color: #fff; }
+    .btn-wa:hover { background: #178A43; }
+    .btn-ink { background: var(--ink); color: #fff; }
+    .btn-ink:hover { background: var(--blue); }
+    .btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+    .btn-ghost:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+    .btn-block { width: 100%; }
 
-    .glass-nav.scrolled {
-      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
-      border-color: rgba(226, 232, 240, 0.8);
+    /* ---------- Nav ---------- */
+    .nav {
+      position: sticky; top: 0; z-index: 30;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s;
     }
+    .nav.scrolled { border-color: var(--line); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand svg { width: 38px; height: 38px; }
+    .brand-name { font-weight: 800; font-size: 21px; letter-spacing: -0.02em; line-height: 1; }
+    .brand-name .maha { color: var(--ink); }
+    .brand-name .sewa { color: var(--blue); }
+    .nav-links { display: flex; gap: 28px; font-size: 15px; font-weight: 600; color: var(--ink-soft); }
+    .nav-links a { text-decoration: none; padding: 6px 0; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { padding: 10px 18px; font-size: 14px; }
+    .menu-btn { display: none; background: none; border: 0; padding: 8px; color: var(--ink); }
+    .mobile-menu { display: none; }
 
-    .hero-gradient {
-      background: radial-gradient(circle at 80% 20%, rgba(0, 84, 166, 0.08) 0%, rgba(255, 255, 255, 0) 70%),
-                  radial-gradient(circle at 10% 80%, rgba(255, 138, 0, 0.05) 0%, rgba(255, 255, 255, 0) 60%);
-    }
-
-    /* Standardized Product Image Container */
-    .product-image-container {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      overflow: hidden;
-      border-radius: 16px;
-      background-color: #F8FAFC;
-      border: 1px solid #F1F5F9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* ---------- Hero ---------- */
+    .hero {
       position: relative;
-    }
-
-    .product-image {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 16px;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Skeleton Loading State */
-    .img-skeleton {
-      background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
-      background-size: 200% 100%;
-      animation: skeleton-loading 1.5s infinite;
-    }
-
-    @keyframes skeleton-loading {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    /* Card Hover Animations */
-    .product-card {
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 25px -5px rgba(0, 84, 166, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-      border-color: rgba(0, 84, 166, 0.3);
-    }
-
-    .product-card:hover .product-image {
-      transform: scale(1.04);
-    }
-
-    /* Hero Floating Badge Animation */
-    .floating-card {
-      animation: float 5s ease-in-out infinite;
-    }
-    
-    .floating-card-delayed {
-      animation: float 6s ease-in-out 1.2s infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
-    }
-
-    /* Line Clamping for Equal Height Cards */
-    .line-clamp-title {
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
+      background-color: var(--mist);
+      background-image:
+        linear-gradient(rgba(36,73,176,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(36,73,176,.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      padding: 72px 0 96px;
       overflow: hidden;
     }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+    .hero-who {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 600; color: var(--blue);
+      background: var(--paper); padding: 6px 14px 6px 8px; border-radius: 999px;
+      box-shadow: 0 0 0 1px var(--line);
+      margin-bottom: 28px;
+    }
+    .hero-who .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--wa); margin-left: 4px; }
+    .hero h1 {
+      font-size: clamp(44px, 6.4vw, 80px);
+      line-height: .98;
+      letter-spacing: -0.045em;
+      font-weight: 800;
+      margin: 0 0 28px;
+    }
+    .hero-lead { font-size: 19px; color: var(--ink-soft); max-width: 34em; margin: 0 0 36px; line-height: 1.55; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-facts {
+      display: flex; flex-wrap: wrap; gap: 8px 24px;
+      margin: 40px 0 0; padding: 0; list-style: none;
+      font-size: 14px; font-weight: 600; color: var(--ink-soft);
+    }
+    .hero-facts li { display: flex; align-items: center; gap: 8px; }
+    .hero-facts svg { color: var(--blue); }
 
-    .line-clamp-desc {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      min-height: 2.25rem;
+    /* ---------- Loan slip (signature element) ---------- */
+    .slip-holder { position: relative; display: flex; justify-content: center; }
+    .slip-slot {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      width: min(460px, 100%); height: 16px; border-radius: 8px;
+      background: var(--ink); z-index: 3;
+      box-shadow: 0 6px 12px rgba(11,27,63,.25);
+    }
+    .slip {
+      position: relative; z-index: 2;
+      width: min(420px, 100%);
+      background: var(--paper);
+      border-radius: 4px 4px 0 0;
+      padding: 30px 28px 34px;
+      box-shadow: 0 24px 48px -20px rgba(11,27,63,.35), 0 2px 0 rgba(11,27,63,.04);
+      /* torn bottom edge */
+      -webkit-mask: radial-gradient(9px at 50% 100%, transparent 98%, #000) 50% 0 / 18px 100% repeat-x;
+              mask: radial-gradient(9px at 50% 100%, transparent 98%, #000) 50% 0 / 18px 100% repeat-x;
+      animation: print 1.1s cubic-bezier(.2,.8,.2,1) .15s both;
+    }
+    @keyframes print {
+      from { transform: translateY(-62%); clip-path: inset(62% 0 0 0); }
+      to   { transform: translateY(0);    clip-path: inset(0 0 0 0); }
+    }
+    .slip-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 18px; border-bottom: 2px solid var(--ink); }
+    .slip-head .who { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; letter-spacing: -0.01em; }
+    .slip-head svg { width: 30px; height: 30px; }
+    .slip-no { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); text-align: right; line-height: 1.4; }
+
+    .slip-row { padding: 16px 0; border-bottom: 1.5px dashed var(--line); }
+    .slip-row:last-of-type { border-bottom: 0; }
+    .slip-label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-faint); margin-bottom: 8px; }
+
+    .slip select {
+      width: 100%; appearance: none; -webkit-appearance: none;
+      font: inherit; font-weight: 700; font-size: 17px; color: var(--ink);
+      background: var(--mist) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%230B1B3F' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+      border: 0; border-radius: var(--r-sm);
+      padding: 12px 40px 12px 14px;
+    }
+    .slip-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .stepper { display: flex; align-items: center; background: var(--mist); border-radius: var(--r-sm); }
+    .stepper button {
+      width: 40px; height: 44px; border: 0; background: none; color: var(--ink);
+      font-size: 20px; font-weight: 700; border-radius: var(--r-sm);
+    }
+    .stepper button:hover { background: rgba(36,73,176,.1); }
+    .stepper output { flex: 1; text-align: center; font-family: var(--mono); font-weight: 600; font-size: 16px; }
+    .slip input[type="date"] {
+      width: 100%; font-family: var(--mono); font-weight: 600; font-size: 14px; color: var(--ink);
+      background: var(--mist); border: 0; border-radius: var(--r-sm); padding: 0 12px; height: 44px;
+    }
+    .field {
+      width: 100%; height: 44px; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink);
+      background: var(--mist); border: 1.5px solid transparent; border-radius: var(--r-sm); padding: 0 12px;
+    }
+    .field::placeholder { color: var(--ink-faint); font-weight: 500; }
+    .field:focus { outline: none; border-color: var(--blue); background: var(--paper); }
+    .field:user-invalid { border-color: #D64545; }
+    .d-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 16px; margin-top: 2px; border-top: 1.5px dashed var(--line); }
+    .d-fields label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-faint); margin-bottom: 6px; }
+    .d-fields .wide { grid-column: 1 / -1; }
+    .slip-calc { font-family: var(--mono); font-size: 14px; color: var(--ink-soft); }
+    .slip-calc div { display: flex; justify-content: space-between; padding: 3px 0; }
+    .slip-total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px; padding-top: 12px; border-top: 2px solid var(--ink); }
+    .slip-total span:first-child { font-weight: 700; }
+    .slip-total strong { font-family: var(--mono); font-size: 26px; font-weight: 600; letter-spacing: -0.02em; }
+    .slip .btn { margin-top: 22px; }
+
+    .stamp {
+      display: inline-block; margin: 0 auto 0 14px; align-self: center;
+      font-family: var(--mono); font-weight: 600; font-size: 11px; line-height: 1; white-space: nowrap;
+      color: var(--blue); border: 2px solid var(--blue); border-radius: 8px;
+      padding: 6px 8px; transform: rotate(-7deg); opacity: .85;
+      animation: stamp .35s cubic-bezier(.3,1.6,.5,1) 1.25s both;
+      pointer-events: none;
+    }
+    @keyframes stamp {
+      from { transform: rotate(-7deg) scale(1.8); opacity: 0; }
+      to   { transform: rotate(-7deg) scale(1);   opacity: .85; }
     }
 
-    /* Entrance & Scroll Animations */
-    .reveal-item {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    /* ---------- Sections ---------- */
+    section { scroll-margin-top: 72px; }
+    .section { padding: 104px 0; }
+    .section-head { max-width: 640px; margin-bottom: 48px; }
+    .section-head h2 {
+      font-size: clamp(32px, 4.2vw, 48px);
+      line-height: 1.05; letter-spacing: -0.035em; font-weight: 800;
+      margin: 0 0 14px;
     }
+    .section-head p { font-size: 18px; color: var(--ink-soft); margin: 0; }
 
-    .reveal-item.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    /* ---------- Beli vs Sewa ---------- */
+    .compare { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; align-items: start; }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 16px; }
+    .compare-table th { text-align: left; font-size: 14px; font-weight: 600; color: var(--ink-faint); padding: 0 0 14px; }
+    .compare-table th:not(:first-child), .compare-table td:not(:first-child) { text-align: right; }
+    .compare-table td { padding: 20px 0; border-top: 1px solid var(--line); vertical-align: top; }
+    .compare-table td:first-child { font-weight: 700; padding-right: 16px; }
+    .compare-table td small { display: block; font-weight: 500; color: var(--ink-faint); font-size: 14px; }
+    .compare-table .buy { color: var(--ink-faint); text-decoration: line-through; text-decoration-thickness: 1.5px; }
+    .compare-table .rent { font-weight: 800; color: var(--blue); font-size: 18px; padding-left: 14px; }
+    .compare-note { font-size: 14px; color: var(--ink-faint); margin-top: 16px; }
+    .why { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 22px; }
+    .why li { display: grid; grid-template-columns: 36px 1fr; gap: 14px; }
+    .why .ic { width: 36px; height: 36px; border-radius: 10px; background: var(--mist); color: var(--blue); display: grid; place-items: center; }
+    .why strong { display: block; font-size: 16px; }
+    .why span { color: var(--ink-soft); font-size: 15px; }
 
-    /* Category Change Transition */
-    .catalog-transition {
-      animation: fadeInScale 0.3s ease-out forwards;
+    /* ---------- Catalog ---------- */
+    .catalog { background: var(--mist); }
+    .catalog-tools { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .search { position: relative; flex: 1 1 320px; max-width: 440px; }
+    .search svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--ink-faint); }
+    .search input {
+      width: 100%; font: inherit; font-size: 16px;
+      padding: 14px 44px 14px 46px;
+      border: 1.5px solid var(--line); border-radius: 999px; background: var(--paper); color: var(--ink);
     }
+    .search input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(127,178,255,.35); }
+    .search .clear { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); border: 0; background: none; padding: 8px; color: var(--ink-faint); display: none; }
+    .search .clear.show { display: block; }
+    .result-count { font-size: 14px; color: var(--ink-soft); font-weight: 600; }
 
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(0.98);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+    .chips { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 12px; margin-bottom: 20px; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip {
+      flex-shrink: 0; border: 0; border-radius: 999px;
+      padding: 9px 16px; font-size: 14px; font-weight: 600;
+      background: var(--paper); color: var(--ink-soft);
+      box-shadow: inset 0 0 0 1px var(--line);
     }
+    .chip:hover { color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink-faint); }
+    .chip[aria-pressed="true"] { background: var(--ink); color: #fff; box-shadow: none; }
+    .chip .n { font-family: var(--mono); font-size: 12px; opacity: .6; margin-left: 4px; }
 
-    /* Modal Backdrop and Content Animation */
-    #product-modal {
-      transition: opacity 0.25s ease-out;
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .item {
+      display: flex; flex-direction: column;
+      background: var(--paper); border-radius: var(--r-md);
+      padding: 12px 12px 16px;
+      box-shadow: 0 0 0 1px var(--line);
+      transition: box-shadow .15s ease;
     }
+    .item:hover { box-shadow: 0 0 0 1.5px var(--ink); }
+    .item-img {
+      position: relative; aspect-ratio: 1 / 1; border-radius: 10px; background: #F6F8FC;
+      display: grid; place-items: center; overflow: hidden; margin-bottom: 14px;
+      border: 0; padding: 0; width: 100%;
+    }
+    .item-img img { width: 100%; height: 100%; object-fit: contain; padding: 18px; mix-blend-mode: multiply; }
+    .item-tag {
+      position: absolute; top: 10px; left: 10px;
+      background: var(--tag); color: var(--ink);
+      font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+    }
+    .item-cat { font-size: 13px; color: var(--ink-faint); font-weight: 600; padding: 0 4px; }
+    .item h3 { font-size: 17px; line-height: 1.25; letter-spacing: -0.01em; margin: 2px 0 6px; padding: 0 4px; }
+    .item p { font-size: 14px; color: var(--ink-soft); margin: 0 0 14px; padding: 0 4px; line-height: 1.45;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .item-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding: 0 4px; gap: 8px; }
+    .price { font-weight: 800; font-size: 18px; letter-spacing: -0.01em; }
+    .price small { font-weight: 500; font-size: 13px; color: var(--ink-faint); }
+    .item-foot .btn { padding: 9px 16px; font-size: 14px; }
 
-    #product-modal .modal-content {
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease-out;
-      transform: scale(0.95);
-      opacity: 0;
-    }
+    .empty { display: none; text-align: center; padding: 64px 24px; background: var(--paper); border-radius: var(--r-md); box-shadow: 0 0 0 1px var(--line); }
+    .empty.show { display: block; }
+    .empty h3 { margin: 0 0 6px; font-size: 20px; }
+    .empty p { margin: 0 0 20px; color: var(--ink-soft); }
 
-    #product-modal:not(.hidden) .modal-content {
-      transform: scale(1);
-      opacity: 1;
-    }
+    /* ---------- Bundles ---------- */
+    .bundles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-radius: var(--r-lg); overflow: hidden; box-shadow: 0 0 0 1px var(--line); }
+    .bundle { padding: 28px 24px; display: flex; flex-direction: column; background: var(--paper); min-width: 0; }
+    .bundle + .bundle { border-left: 1.5px dashed var(--line); }
+    .bundle h3 { font-size: 19px; letter-spacing: -0.02em; margin: 0 0 4px; }
+    .bundle .save { font-size: 13px; font-weight: 700; color: var(--wa); margin-bottom: 18px; }
+    .bundle ul { list-style: none; padding: 0; margin: 0 0 24px; font-size: 15px; color: var(--ink-soft); display: grid; gap: 6px; }
+    .bundle li { display: flex; gap: 8px; align-items: flex-start; }
+    .bundle li::before { content: "+"; font-family: var(--mono); color: var(--blue); font-weight: 600; }
+    .bundle-price { margin-top: auto; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-bottom: 16px; }
+    .bundle-price strong { font-size: 26px; letter-spacing: -0.03em; }
+    .bundle-price s { color: var(--ink-faint); font-size: 14px; }
+    .bundle-price small { color: var(--ink-faint); font-size: 13px; }
 
-    /* Button Press Feedback */
-    button:active, a:active {
-      transform: scale(0.98);
+    /* ---------- Steps ---------- */
+    .steps-sec { background: var(--ink); color: #fff; }
+    .steps-sec .section-head p { color: #AEB9D1; }
+    .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); counter-reset: s; }
+    .steps li { counter-increment: s; padding: 0 28px 0 0; position: relative; }
+    .steps li::before {
+      content: counter(s);
+      display: grid; place-items: center;
+      width: 44px; height: 44px; border-radius: 50%;
+      font-family: var(--mono); font-weight: 600; font-size: 16px;
+      background: var(--ink); color: var(--sky);
+      box-shadow: inset 0 0 0 2px var(--sky);
+      position: relative; z-index: 1;
+      margin-bottom: 22px;
     }
+    .steps li:not(:last-child)::after {
+      content: ""; position: absolute; top: 22px; left: 44px; right: 0;
+      border-top: 2px dashed rgba(127,178,255,.4);
+    }
+    .steps h3 { font-size: 19px; margin: 0 0 6px; letter-spacing: -0.01em; }
+    .steps p { margin: 0; color: #AEB9D1; font-size: 15px; max-width: 24ch; }
 
-    /* Custom Scrollbar */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+    /* ---------- About + FAQ ---------- */
+    .about-faq { display: grid; grid-template-columns: .9fr 1.1fr; gap: 72px; align-items: start; }
+    .about h2 { font-size: clamp(30px, 3.6vw, 40px); line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 20px; }
+    .about p { color: var(--ink-soft); font-size: 17px; margin: 0 0 16px; max-width: 34em; }
+    .about-points { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .about-points span { font-size: 14px; font-weight: 600; background: var(--mist); color: var(--ink); padding: 8px 14px; border-radius: 999px; }
 
-    /* Accessibility Reduced Motion */
+    .faq h2 { font-size: 22px; margin: 0 0 12px; letter-spacing: -0.02em; }
+    .faq details { border-bottom: 1px solid var(--line); }
+    .faq summary {
+      list-style: none; cursor: pointer;
+      display: flex; justify-content: space-between; gap: 16px; align-items: center;
+      padding: 20px 0; font-weight: 700; font-size: 17px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary .pm { width: 28px; height: 28px; border-radius: 50%; background: var(--mist); display: grid; place-items: center; flex-shrink: 0; transition: transform .2s ease, background-color .2s; }
+    .faq details[open] summary .pm { transform: rotate(45deg); background: var(--ink); color: #fff; }
+    .faq details p { margin: -4px 0 20px; color: var(--ink-soft); max-width: 58ch; }
+
+    /* ---------- CTA + Footer ---------- */
+    .cta-band { background: var(--blue); color: #fff; }
+    .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 56px 24px; flex-wrap: wrap; }
+    .cta-inner h2 { font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 8px; }
+    .cta-inner p { margin: 0; color: #D7E4FF; font-size: 17px; }
+
+    footer { background: var(--ink); color: #AEB9D1; padding: 64px 0 32px; font-size: 15px; }
+    .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(174,185,209,.2); }
+    footer .brand-name .maha { color: #fff; }
+    footer .brand-name .sewa { color: var(--sky); }
+    footer p { max-width: 36ch; margin: 16px 0 0; }
+    footer h4 { color: #fff; font-size: 15px; margin: 0 0 14px; }
+    footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    footer a { text-decoration: none; }
+    footer a:hover { color: #fff; }
+    .foot-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 24px; font-size: 13px; }
+
+    /* ---------- Dialog ---------- */
+    dialog {
+      border: 0; padding: 0; border-radius: var(--r-lg);
+      width: min(820px, calc(100% - 32px)); max-height: calc(100% - 32px);
+      color: var(--ink); background: var(--paper);
+      box-shadow: 0 40px 80px -20px rgba(11,27,63,.45);
+    }
+    dialog::backdrop { background: rgba(11,27,63,.55); backdrop-filter: blur(3px); }
+    dialog[open] { animation: pop .22s cubic-bezier(.2,.9,.3,1.1); }
+    @keyframes pop { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+    .d-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .d-img { background: #F6F8FC; display: grid; place-items: center; padding: 32px; min-height: 320px; }
+    .d-img img { max-height: 340px; object-fit: contain; mix-blend-mode: multiply; }
+    .d-body { padding: 32px 32px 28px; position: relative; }
+    .d-close { position: absolute; top: 14px; right: 14px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--mist); color: var(--ink); display: grid; place-items: center; }
+    .d-close:hover { background: var(--line); }
+    .d-body .item-cat { padding: 0; }
+    .avail { margin-left: 10px; font-size: 13px; font-weight: 700; color: var(--wa); }
+    .d-body h3 { font-size: 26px; letter-spacing: -0.03em; margin: 2px 0 8px; line-height: 1.15; padding-right: 40px; }
+    .d-body > p { color: var(--ink-soft); margin: 0 0 18px; font-size: 15px; }
+    .d-list { margin: 0 0 16px; }
+    .d-list h4 { font-size: 14px; margin: 0 0 6px; }
+    .d-list ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 14px; }
+    .d-note { font-size: 14px; color: var(--ink-soft); background: var(--mist); padding: 10px 14px; border-radius: var(--r-sm); margin-bottom: 18px; }
+    .d-order { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; padding-top: 16px; }
+    .d-order .stepper { width: 140px; }
+    .d-total { text-align: right; font-family: var(--mono); }
+    .d-total small { display: block; font-family: var(--font); font-size: 13px; color: var(--ink-faint); }
+    .d-total strong { font-size: 22px; }
+    .d-body .btn { margin-top: 16px; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1024px) {
+      .grid { grid-template-columns: repeat(3, 1fr); }
+      .bundles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .bundle:nth-child(3) { border-left: 0; }
+      .bundle:nth-child(n+3) { border-top: 1.5px dashed var(--line); }
+    }
+    @media (max-width: 880px) {
+      .nav-links, .nav-cta { display: none; }
+      .menu-btn { display: block; }
+      .mobile-menu.open { display: grid; gap: 4px; padding: 8px 24px 20px; border-bottom: 1px solid var(--line); background: var(--paper); }
+      .mobile-menu a { padding: 12px 0; font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--mist); }
+      .mobile-menu .btn { margin-top: 12px; }
+      .hero { padding: 48px 0 72px; }
+      .hero-grid, .compare, .about-faq { grid-template-columns: 1fr; gap: 48px; }
+      .steps { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+      .steps li:nth-child(2)::after { display: none; }
+      .foot-grid { grid-template-columns: 1fr 1fr; }
+      .foot-grid > :first-child { grid-column: 1 / -1; }
+      .d-grid { grid-template-columns: 1fr; }
+      .d-img { min-height: 220px; padding: 20px; }
+      .d-img img { max-height: 220px; }
+    }
+    @media (max-width: 600px) {
+      .wrap { padding: 0 18px; }
+      .section { padding: 72px 0; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .item { padding: 8px 8px 12px; }
+      .item h3 { font-size: 15px; }
+      .item p { display: none; }
+      .item-foot { flex-direction: column; align-items: stretch; }
+      .item-foot .btn { width: 100%; }
+      .bundles { grid-template-columns: 1fr; }
+      .bundle + .bundle { border-left: 0; border-top: 1.5px dashed var(--line); }
+      .steps { grid-template-columns: 1fr; }
+      .steps li::after { display: none; }
+      .slip { padding: 26px 20px 30px; }
+      .compare-table { font-size: 14px; }
+      .compare-table .rent { font-size: 16px; }
+      .compare-table td small { font-size: 13px; }
+      .th-long { display: none; }
+      .d-body { padding: 24px 20px; }
+      .d-order { grid-template-columns: 1fr; }
+      .d-fields { grid-template-columns: 1fr; }
+      .d-total { text-align: left; }
+    }
     @media (prefers-reduced-motion: reduce) {
-      *, ::before, ::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-      .floating-card, .floating-card-delayed {
-        animation: none !important;
-      }
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
     }
   </style>
 </head>
-<body class="antialiased text-slate-800 bg-white selection:bg-binus selection:text-white">
+<body>
 
-  <!-- MahaSewa Logo Mark (reusable SVG symbol) -->
+  <!-- Reusable SVG: logo mark + icons -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
       <linearGradient id="maha-grad" x1="0" y1="0" x2="1" y2="1">
@@ -229,1427 +467,689 @@
         <stop offset="45%" stop-color="#2A4FBA"/>
         <stop offset="100%" stop-color="#162C74"/>
       </linearGradient>
-      <symbol id="mahasewa-mark" viewBox="0 0 100 100">
-        <rect x="0" y="0" width="100" height="100" rx="28" fill="url(#maha-grad)"/>
-        <path d="M28 73 V30 L50 52 L72 30 V73" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <symbol id="mark" viewBox="0 0 100 100">
+        <rect width="100" height="100" rx="28" fill="url(#maha-grad)"/>
+        <path d="M28 73 V30 L50 52 L72 30 V73" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
         <circle cx="50" cy="72" r="4.5" fill="#7FB2FF"/>
       </symbol>
+      <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 4.54 0 8.24 3.7 8.24 8.24 0 4.55-3.7 8.24-8.23 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h11v4M4 7v10a2 2 0 0 0 2 2h14V9H6a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="14" r="1.4" fill="currentColor"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 18l-1 3 4-1.5A9 9 0 1 0 5 18z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5L2 9zm4 2.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
     </defs>
   </svg>
 
-  <!-- NAVBAR -->
-  <header id="navbar" class="sticky top-0 z-40 w-full glass-nav border-b border-slate-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
-        
-        <!-- Logo -->
-        <a href="#" class="flex items-center gap-2.5 group" aria-label="MahaSewa Home">
-          <svg class="w-10 h-10 drop-shadow-md group-hover:scale-105 transition-transform" viewBox="0 0 100 100" aria-hidden="true">
-            <use href="#mahasewa-mark"/>
-          </svg>
-          <div class="flex flex-col leading-none">
-            <span class="text-xl font-extrabold tracking-tight">
-              <span class="text-maha-navy">Maha</span><span class="text-maha-blue">Sewa</span>
-            </span>
-            <span class="text-[10px] font-semibold tracking-[0.2em] text-slate-500 uppercase mt-1">CS Academic Equipment</span>
-          </div>
-        </a>
-
-        <!-- Desktop Navigation Links -->
-        <nav class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-sm">
-          <a href="#home" class="hover:text-binus transition-colors">Home</a>
-          <a href="#katalog" class="hover:text-binus transition-colors">Katalog</a>
-          <a href="#paket" class="hover:text-binus transition-colors">Paket Hemat</a>
-          <a href="#cara-sewa" class="hover:text-binus transition-colors">Cara Sewa</a>
-          <a href="#tentang" class="hover:text-binus transition-colors">Tentang Kami</a>
-          <a href="#faq" class="hover:text-binus transition-colors">FAQ</a>
-        </nav>
-
-        <!-- CTA Button Desktop -->
-        <div class="hidden md:flex items-center gap-4">
-          <a href="#katalog" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-binus hover:bg-binus-dark text-white font-semibold text-sm transition-all shadow-md shadow-binus/20">
-            <i class="fa-solid fa-box-open text-xs"></i>
-            Lihat Barang
-          </a>
-        </div>
-
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" aria-label="Toggle Menu" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 focus:outline-none">
-          <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
-        </button>
-      </div>
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a href="#home" class="brand" aria-label="MahaSewa, ke atas">
+        <svg aria-hidden="true"><use href="#mark"/></svg>
+        <span class="brand-name"><span class="maha">Maha</span><span class="sewa">Sewa</span></span>
+      </a>
+      <nav class="nav-links" aria-label="Navigasi utama">
+        <a href="#katalog">Katalog</a>
+        <a href="#paket">Paket hemat</a>
+        <a href="#cara-sewa">Cara sewa</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn btn-ink nav-cta" href="#katalog">Lihat barang</a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mobile-menu" aria-label="Buka menu">
+        <svg class="icon" style="width:26px;height:26px"><use href="#i-menu"/></svg>
+      </button>
     </div>
-
-    <!-- Mobile Drawer -->
-    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3 shadow-xl">
-      <a href="#home" class="mobile-link block px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-50 hover:text-binus">Home</a>
-      <a href="#katalog" class="mobile-link block px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-50 hover:text-binus">Katalog</a>
-      <a href="#paket" class="mobile-link block px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-50 hover:text-binus">Paket Hemat</a>
-      <a href="#cara-sewa" class="mobile-link block px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-50 hover:text-binus">Cara Sewa</a>
-      <a href="#tentang" class="mobile-link block px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-50 hover:text-binus">Tentang Kami</a>
-      <a href="#faq" class="mobile-link block px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-50 hover:text-binus">FAQ</a>
-      <div class="pt-2">
-        <a href="#katalog" class="mobile-link w-full text-center flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-binus text-white font-semibold text-sm shadow-md">
-          <i class="fa-solid fa-box-open"></i>
-          Lihat Barang
-        </a>
-      </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#katalog">Katalog</a>
+      <a href="#paket">Paket hemat</a>
+      <a href="#cara-sewa">Cara sewa</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-ink" href="#katalog">Lihat barang</a>
     </div>
   </header>
 
-  <!-- HERO SECTION -->
-  <section id="home" class="relative hero-gradient pt-8 pb-20 lg:pt-16 lg:pb-32 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-12 gap-12 items-center">
-        
-        <!-- Left Content Column -->
-        <div class="lg:col-span-7 text-center lg:text-left space-y-6">
-          
-          <!-- Student Badge -->
-          <div class="reveal-item inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-binus/10 text-binus border border-binus/20 text-xs sm:text-sm font-semibold">
-            <span class="flex h-2 w-2 rounded-full bg-binus animate-ping"></span>
-            Khusus Mahasiswa Computer Science BINUS
-          </div>
-
-          <!-- Main Headline -->
-          <h1 class="reveal-item text-4xl sm:text-5xl lg:text-6xl font-black text-binus-navy tracking-tight leading-tight">
-            Perlu Barang Buat Kuliah? <br class="hidden sm:inline"/>
-            <span class="text-binus underline decoration-binus/30 decoration-wavy decoration-2">Nggak Harus Beli.</span>
-          </h1>
-
-          <!-- Subheadline -->
-          <p class="reveal-item text-slate-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-            Sewa perlengkapan akademik jangka pendek yang kamu butuhkan untuk ujian, tugas, praktikum, project, hingga presentasi tanpa bikin kantong jebol.
-          </p>
-
-          <!-- CTAs -->
-          <div class="reveal-item flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-            <a href="#katalog" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-binus hover:bg-binus-dark text-white font-bold text-base transition-all shadow-lg shadow-binus/25 flex items-center justify-center gap-3 group">
-              <span>Lihat Barang Available</span>
-              <i class="fa-solid fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
-            </a>
-            <a href="#cara-sewa" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-base transition-all flex items-center justify-center gap-2 hover:border-slate-300">
-              <i class="fa-regular fa-circle-question text-binus"></i>
-              Cara Sewa
-            </a>
-          </div>
-
-          <!-- Trust Indicators -->
-          <div class="reveal-item pt-6 border-t border-slate-200/60 grid grid-cols-3 gap-2 max-w-lg mx-auto lg:mx-0">
-            <div class="flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-700">
-              <i class="fa-solid fa-circle-check text-binus text-base"></i>
-              <span>Khusus BINUSIAN</span>
-            </div>
-            <div class="flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-700">
-              <i class="fa-solid fa-circle-check text-binus text-base"></i>
-              <span>Harga pelajar</span>
-            </div>
-            <div class="flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-700">
-              <i class="fa-solid fa-circle-check text-binus text-base"></i>
-              <span>Proses cepat</span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Right Visual Column (Floating Product Showcase) -->
-        <div class="lg:col-span-5 relative reveal-item">
-          <div class="relative mx-auto max-w-md lg:max-w-none">
-            
-            <!-- Background Glow -->
-            <div class="absolute -top-12 -bottom-12 -left-12 -right-12 bg-binus/10 rounded-3xl filter blur-3xl -z-10"></div>
-
-            <!-- Central Featured Hero Card -->
-            <div class="bg-white p-6 rounded-2xl shadow-2xl border border-slate-100 relative z-10 floating-card">
-              <div class="flex items-center justify-between mb-4">
-                <span class="px-3 py-1 bg-emerald-50 text-emerald-600 font-semibold text-xs rounded-full border border-emerald-200 flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  Ready Stock Hari Ini
-                </span>
-                <span class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-bolt text-amber-400 mr-1"></i>Paling Dicari</span>
-              </div>
-
-              <!-- Standardized Product Image Frame -->
-              <div class="product-image-container mb-4">
-                <img src="https://www.mrprice.online/cdn/shop/files/mrprice-online-back-to-school-default-title-casio-fx85gtcw-white-scientific-calculator-54242329919824_1200x.jpg?v=1775660404" 
-                     alt="Scientific Calculator" 
-                     class="product-image"
-                     onerror="handleImageError(this, 'Scientific Calculator')">
-              </div>
-
-              <div class="flex justify-between items-start mb-2">
-                <div>
-                  <span class="text-xs font-semibold text-binus uppercase tracking-wider">Ujian Kit</span>
-                  <h3 class="text-lg font-bold text-binus-navy">Kalkulator Scientific Casio</h3>
-                </div>
-                <div class="text-right">
-                  <span class="text-xs text-slate-400 block">Sewa</span>
-                  <span class="text-base font-extrabold text-binus">Rp15.000<span class="text-xs font-normal text-slate-500">/hari</span></span>
-                </div>
-              </div>
-
-              <p class="text-xs text-slate-500 mb-4 line-clamp-desc">Wajib untuk Ujian Kalkulus, Discrete Math, dan Statistics CS BINUS.</p>
-
-              <button onclick="quickOrder('Kalkulator Scientific', 'Rp15.000/hari')" class="w-full py-3 bg-binus hover:bg-binus-dark text-white rounded-xl font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 group">
-                <i class="fa-brands fa-whatsapp text-lg group-hover:rotate-12 transition-transform"></i>
-                Sewa Sekarang
-              </button>
-            </div>
-
-            <!-- Floating Mini Card 1 (Top Left) -->
-            <div class="absolute -top-6 -left-6 sm:-left-8 bg-white p-3.5 rounded-2xl shadow-xl border border-slate-100 hidden sm:flex items-center gap-3 z-20 floating-card-delayed max-w-[220px]">
-              <div class="w-10 h-10 rounded-xl bg-binus/10 flex items-center justify-center text-binus text-lg shrink-0">
-                <i class="fa-solid fa-wifi"></i>
-              </div>
-              <div class="overflow-hidden">
-                <p class="text-xs font-bold text-slate-800 truncate">Presentation Clicker</p>
-                <p class="text-[11px] font-semibold text-binus">Rp15.000/hari</p>
-              </div>
-            </div>
-
-            <!-- Floating Mini Card 2 (Bottom Right) -->
-            <div class="absolute -bottom-6 -right-6 sm:-right-8 bg-white p-3.5 rounded-2xl shadow-xl border border-slate-100 hidden sm:flex items-center gap-3 z-20 floating-card max-w-[220px]">
-              <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-500 text-lg shrink-0">
-                <i class="fa-solid fa-plug"></i>
-              </div>
-              <div class="overflow-hidden">
-                <p class="text-xs font-bold text-slate-800 truncate">USB-C Hub 7-in-1</p>
-                <p class="text-[11px] font-semibold text-binus">Rp15.000/hari</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- VALUE PROPOSITION -->
-  <section class="py-16 bg-slate-50 border-y border-slate-200/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="reveal-item text-center max-w-2xl mx-auto mb-12">
-        <span class="text-binus font-bold text-xs uppercase tracking-widest block mb-2">Solusi Cerdas Mahasiswa</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-binus-navy">
-          Kenapa Harus Beli Kalau Cuma Dipakai Sebentar?
-        </h2>
-        <p class="text-slate-600 text-sm sm:text-base mt-2">
-          Gak perlu keluar ratusan ribu cuma buat barang yang dipakai 1–2 kali pas ujian atau presentasi.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        
-        <!-- Card 1 -->
-        <div class="reveal-item bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100 flex flex-col items-start">
-          <div class="w-12 h-12 rounded-xl bg-binus/10 text-binus flex items-center justify-center text-xl font-bold mb-6">
-            <i class="fa-solid fa-wallet"></i>
-          </div>
-          <h3 class="text-xl font-bold text-binus-navy mb-3">1. Lebih Hemat</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">
-            Tidak perlu membeli adapter Rp300rb atau kalkulator Rp250rb yang cuma terpakai pas minggu ujian. Hemat budget bulananmu!
-          </p>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="reveal-item bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100 flex flex-col items-start">
-          <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold mb-6">
-            <i class="fa-brands fa-whatsapp"></i>
-          </div>
-          <h3 class="text-xl font-bold text-binus-navy mb-3">2. Serba Praktis</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">
-            Pilih barang di katalog, klik "Sewa Sekarang", dan pesan otomatis terformat di WhatsApp. Tanpa ribet registrasi akun.
-          </p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="reveal-item bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-slate-100 flex flex-col items-start">
-          <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold mb-6">
-            <i class="fa-solid fa-graduation-cap"></i>
-          </div>
-          <h3 class="text-xl font-bold text-binus-navy mb-3">3. Untuk Mahasiswa CS</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">
-            Semua barang dikurasi khusus sesuai dengan spesifikasi alat ujian, kelas praktikum lab, dan tugas mata kuliah Computer Science BINUS.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- POPULAR ITEMS SECTION -->
-  <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="reveal-item flex flex-col md:flex-row md:items-end justify-between mb-10">
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="wrap hero-grid">
         <div>
-          <span class="text-binus font-bold text-xs uppercase tracking-widest block mb-1">Top Picks</span>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-binus-navy">Paling Sering Dibutuhkan</h2>
-        </div>
-        <a href="#katalog" class="mt-4 md:mt-0 text-binus font-semibold text-sm hover:underline flex items-center gap-1">
-          Lihat Semua Produk <i class="fa-solid fa-arrow-right text-xs"></i>
-        </a>
-      </div>
-
-      <!-- Popular Cards Grid -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" id="popular-items-grid">
-        <!-- Rendered via JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- RENTAL PACKAGES SECTION -->
-  <section id="paket" class="py-16 bg-slate-50 border-t border-slate-200/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="reveal-item text-center max-w-2xl mx-auto mb-12">
-        <span class="px-3 py-1 bg-binus/10 text-binus rounded-full font-bold text-xs uppercase tracking-wider inline-block mb-3">Bundle Savings</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-binus-navy">Paket Hemat MahaSewa</h2>
-        <p class="text-slate-600 text-sm mt-2">Sewa beberapa barang sekaligus dalam satu paket dengan harga jauh lebih ekonomis!</p>
-      </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" id="packages-grid">
-        <!-- Rendered via JS -->
-      </div>
-
-    </div>
-  </section>
-
-  <!-- PRODUCT CATALOG SECTION -->
-  <section id="katalog" class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <!-- Catalog Header -->
-      <div class="reveal-item text-center max-w-2xl mx-auto mb-8">
-        <span class="text-binus font-bold text-xs uppercase tracking-widest block mb-2">Katalog Lengkap</span>
-        <h2 class="text-3xl sm:text-4xl font-black text-binus-navy">Mau Sewa Apa Hari Ini?</h2>
-        <p class="text-slate-600 text-sm sm:text-base mt-2">Temukan perlengkapan yang kamu butuhkan.</p>
-      </div>
-
-      <!-- Search Bar -->
-      <div class="reveal-item max-w-2xl mx-auto mb-8 relative">
-        <div class="relative flex items-center">
-          <i class="fa-solid fa-magnifying-glass absolute left-5 text-slate-400 text-lg"></i>
-          <input type="text" id="search-input" 
-                 placeholder="Cari kalkulator, charger, HDMI, clicker, webcam..." 
-                 class="w-full pl-14 pr-12 py-4 rounded-2xl border-2 border-slate-200 focus:border-binus focus:outline-none text-base shadow-sm transition-all">
-          <button id="clear-search" class="hidden absolute right-4 text-slate-400 hover:text-slate-600 p-1">
-            <i class="fa-solid fa-xmark text-lg"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- Category Filters (Horizontal Scroll on Mobile) -->
-      <div class="reveal-item flex items-center gap-2 overflow-x-auto no-scrollbar pb-4 mb-8 justify-start lg:justify-center" id="category-filters">
-        <!-- JS injected category buttons -->
-      </div>
-
-      <!-- Active Filter Status & Count -->
-      <div class="flex items-center justify-between mb-6 px-1">
-        <p class="text-sm font-semibold text-slate-500">
-          Menampilkan <span id="product-count" class="text-binus font-bold">0</span> barang
-        </p>
-        <span id="active-filter-label" class="text-xs text-slate-400 font-medium">Filter: Semua</span>
-      </div>
-
-      <!-- Product Cards Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="product-grid">
-        <!-- Rendered dynamically -->
-      </div>
-
-      <!-- Empty State -->
-      <div id="empty-state" class="hidden text-center py-16 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
-        <div class="w-16 h-16 bg-slate-200 text-slate-400 rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
-          <i class="fa-solid fa-box-open"></i>
-        </div>
-        <h3 class="text-lg font-bold text-slate-700">Barang Tidak Ditemukan</h3>
-        <p class="text-sm text-slate-500 max-w-md mx-auto mt-1">Coba gunakan kata kunci pencarian lain atau ganti kategori filter.</p>
-        <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-binus text-white text-xs font-semibold rounded-lg hover:bg-binus-dark transition-colors">
-          Reset Pencarian
-        </button>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section id="cara-sewa" class="py-20 bg-slate-50 border-y border-slate-200/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="reveal-item text-center max-w-2xl mx-auto mb-16">
-        <span class="text-binus font-bold text-xs uppercase tracking-widest block mb-2">Langkah Mudah</span>
-        <h2 class="text-3xl font-extrabold text-binus-navy">Cara Sewa di MahaSewa</h2>
-        <p class="text-slate-600 text-sm mt-2">Hanya butuh kurang dari 1 menit untuk memesan perlengkapan kamu.</p>
-      </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-        
-        <!-- Step 1 -->
-        <div class="reveal-item bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm relative z-10 flex flex-col">
-          <div class="w-12 h-12 rounded-xl bg-binus text-white font-black text-xl flex items-center justify-center mb-6 shadow-md shadow-binus/20">
-            1
-          </div>
-          <h3 class="text-lg font-bold text-binus-navy mb-2">Cari Barang</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">
-            Cari perlengkapan yang kamu butuhkan dari katalog kami.
-          </p>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="reveal-item bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm relative z-10 flex flex-col">
-          <div class="w-12 h-12 rounded-xl bg-binus text-white font-black text-xl flex items-center justify-center mb-6 shadow-md shadow-binus/20">
-            2
-          </div>
-          <h3 class="text-lg font-bold text-binus-navy mb-2">Pilih Barang</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">
-            Lihat harga dan detail barang untuk memastikan spesifikasinya.
-          </p>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="reveal-item bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm relative z-10 flex flex-col">
-          <div class="w-12 h-12 rounded-xl bg-binus text-white font-black text-xl flex items-center justify-center mb-6 shadow-md shadow-binus/20">
-            3
-          </div>
-          <h3 class="text-lg font-bold text-binus-navy mb-2">Hubungi via WA</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">
-            Klik Sewa Sekarang dan pesanan otomatis dikirim ke WhatsApp.
-          </p>
-        </div>
-
-        <!-- Step 4 -->
-        <div class="reveal-item bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm relative z-10 flex flex-col">
-          <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white font-black text-xl flex items-center justify-center mb-6 shadow-md shadow-emerald-600/20">
-            4
-          </div>
-          <h3 class="text-lg font-bold text-binus-navy mb-2">Ambil & Kembalikan</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">
-            Atur waktu pengambilan dan pengembalian bersama MahaSewa.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ABOUT SECTION -->
-  <section id="tentang" class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="reveal-item bg-gradient-to-br from-binus-navy to-slate-900 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl">
-        <div class="absolute -right-10 -bottom-10 w-80 h-80 bg-binus/30 rounded-full blur-3xl pointer-events-none"></div>
-        
-        <div class="max-w-3xl relative z-10 space-y-6">
-          <span class="px-3 py-1 bg-white/10 text-blue-200 rounded-full text-xs font-semibold tracking-wider uppercase border border-white/10">
-            Tentang MahaSewa
+          <span class="hero-who">
+            <span class="dot" aria-hidden="true"></span>
+            Khusus mahasiswa Computer Science BINUS
           </span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
-            Dibuat Khusus Untuk Kemudahan Mahasiswa Computer Science
-          </h2>
-          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-            MahaSewa hadir untuk membantu mahasiswa mendapatkan akses ke perlengkapan akademik tanpa harus membeli barang yang hanya digunakan sementara.
-          </p>
-          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-            Kami percaya mahasiswa seharusnya dapat menyelesaikan kebutuhan akademiknya dengan lebih praktis dan hemat.
-          </p>
-
-          <div class="pt-4 flex flex-wrap items-center gap-6 text-sm text-slate-300 font-medium">
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-graduation-cap text-binus-orange text-lg"></i>
-              <span>CS BINUS Focus</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-bolt text-binus-orange text-lg"></i>
-              <span>Respon Cepat</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-shield-halved text-binus-orange text-lg"></i>
-              <span>Barang Terawat & Normal</span>
-            </div>
+          <h1>Butuh buat besok?<br>Sewa aja.</h1>
+          <p class="hero-lead">Kalkulator buat ujian, clicker buat presentasi, adapter HDMI pas proyektor kelas nggak nyambung. Sewa per hari mulai Rp5.000, ambil di area kampus, pesan lewat WhatsApp.</p>
+          <div class="hero-actions">
+            <a class="btn btn-ink" href="#katalog">Lihat 20 barang</a>
+            <a class="btn btn-ghost" href="#cara-sewa">Cara sewa</a>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ SECTION -->
-  <section id="faq" class="py-16 bg-slate-50 border-t border-slate-200/60">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="reveal-item text-center mb-12">
-        <span class="text-binus font-bold text-xs uppercase tracking-widest block mb-2">Pertanyaan Populer</span>
-        <h2 class="text-3xl font-extrabold text-binus-navy">Frequently Asked Questions</h2>
-        <p class="text-slate-600 text-sm mt-2">Segala hal yang perlu kamu ketahui tentang penyewaan di MahaSewa.</p>
-      </div>
-
-      <!-- Accordion Container -->
-      <div class="space-y-4" id="faq-accordion">
-        <!-- Rendered via JS -->
-      </div>
-
-    </div>
-  </section>
-
-  <!-- FINAL CTA SECTION -->
-  <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="reveal-item bg-gradient-to-r from-binus via-blue-600 to-binus-dark rounded-3xl p-8 sm:p-12 text-center text-white shadow-xl relative overflow-hidden">
-        
-        <div class="relative z-10 max-w-2xl mx-auto space-y-4">
-          <h2 class="text-3xl sm:text-4xl font-extrabold">Masih Bingung Butuh Barang Apa?</h2>
-          <p class="text-blue-100 text-base sm:text-lg">
-            Chat MahaSewa dan kami bantu cari perlengkapan yang kamu butuhkan.
-          </p>
-          <div class="pt-4">
-            <a href="https://wa.me/6287883393238?text=Halo%20MahaSewa%20Saya%20ingin%20bertanya%20mengenai%20penyewaan%20barang." 
-               target="_blank"
-               class="inline-flex items-center gap-3 px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-2xl shadow-lg transition-all text-base group">
-              <i class="fa-brands fa-whatsapp text-2xl group-hover:scale-110 transition-transform"></i>
-              <span>Chat WhatsApp</span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-binus-navy text-slate-400 py-12 border-t border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-slate-800">
-        
-        <!-- Col 1: Brand -->
-        <div class="md:col-span-2 space-y-4">
-          <div class="flex items-center gap-2.5">
-            <svg class="w-9 h-9" viewBox="0 0 100 100" aria-hidden="true">
-              <use href="#mahasewa-mark"/>
-            </svg>
-            <span class="text-xl font-extrabold tracking-tight">
-              <span class="text-white">Maha</span><span class="text-maha-sky">Sewa</span>
-            </span>
-          </div>
-          <p class="text-sm text-slate-400 max-w-sm leading-relaxed">
-            Academic Equipment Rental for BINUS Students. Solusi praktis dan hemat untuk ujian, praktikum, dan presentasi.
-          </p>
-        </div>
-
-        <!-- Col 2: Navigation -->
-        <div>
-          <h4 class="text-white font-semibold text-sm mb-4">Navigasi Cepat</h4>
-          <ul class="space-y-2.5 text-sm">
-            <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
-            <li><a href="#katalog" class="hover:text-white transition-colors">Katalog Barang</a></li>
-            <li><a href="#cara-sewa" class="hover:text-white transition-colors">Cara Sewa</a></li>
-            <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+          <ul class="hero-facts">
+            <li><svg class="icon"><use href="#i-check"/></svg>Tunjukkan BINUSIAN ID</li>
+            <li><svg class="icon"><use href="#i-check"/></svg>Harga pelajar</li>
+            <li><svg class="icon"><use href="#i-check"/></svg>Tanpa bikin akun</li>
           </ul>
         </div>
 
-        <!-- Col 3: Contact -->
-       <div>
-  <h4 class="text-white font-semibold text-sm mb-4">Hubungi Kami</h4>
-  <ul class="space-y-2.5 text-sm">
-    <li class="flex items-center gap-2">
-      <i class="fa-brands fa-whatsapp text-emerald-400"></i>
-      <a href="https://wa.me/6287883393238" target="_blank" rel="noopener noreferrer"
-         class="hover:text-white transition-colors">
-        +62 878 8339 3238
+        <div class="slip-holder">
+          <div class="slip-slot" aria-hidden="true"></div>
+          <form class="slip" id="slip" aria-label="Kartu sewa: hitung biaya dan pesan">
+            <div class="slip-head">
+              <span class="who"><svg aria-hidden="true"><use href="#mark"/></svg>Kartu sewa</span>
+              <span class="slip-no" id="slip-no"></span>
+            </div>
+
+            <div class="slip-row">
+              <label class="slip-label" for="slip-item">Barang</label>
+              <select id="slip-item"></select>
+            </div>
+
+            <div class="slip-row slip-split">
+              <div>
+                <span class="slip-label" id="slip-days-label">Durasi</span>
+                <div class="stepper" role="group" aria-labelledby="slip-days-label">
+                  <button type="button" data-step="-1" aria-label="Kurangi hari">−</button>
+                  <output id="slip-days" aria-live="polite">1 hari</output>
+                  <button type="button" data-step="1" aria-label="Tambah hari">+</button>
+                </div>
+              </div>
+              <div>
+                <label class="slip-label" for="slip-start">Mulai sewa</label>
+                <input type="date" id="slip-start">
+              </div>
+            </div>
+
+            <div class="slip-row slip-split">
+              <div>
+                <label class="slip-label" for="slip-name">Nama</label>
+                <input class="field" type="text" id="slip-name" name="nama" autocomplete="name" placeholder="Nama lengkap" required>
+              </div>
+              <div>
+                <label class="slip-label" for="slip-nim">BINUSIAN ID</label>
+                <input class="field" type="text" id="slip-nim" name="nim" inputmode="numeric" pattern="[0-9]{8,12}" title="Isi BINUSIAN ID pakai angka saja" placeholder="Angka saja" required>
+              </div>
+            </div>
+
+            <div class="slip-row slip-calc">
+              <div><span id="slip-rate"></span><span id="slip-sub"></span></div>
+              <div><span>Kembalikan</span><span id="slip-return"></span></div>
+              <div class="slip-total"><span>Total</span><span class="stamp" aria-hidden="true">Siap diambil</span><strong id="slip-total"></strong></div>
+            </div>
+
+            <button type="submit" class="btn btn-wa btn-block">
+              <svg class="icon"><use href="#i-wa"/></svg>
+              Pesan lewat WhatsApp
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- BELI VS SEWA -->
+    <section class="section">
+      <div class="wrap compare">
+        <div>
+          <div class="section-head" style="margin-bottom:0">
+            <h2>Kenapa beli kalau cuma dipakai seminggu?</h2>
+            <p>Banyak barang kuliah cuma kepake pas minggu ujian atau sekali presentasi. Sisanya nganggur di laci.</p>
+          </div>
+          <ul class="why">
+            <li><span class="ic"><svg class="icon"><use href="#i-wallet"/></svg></span><div><strong>Bayar sesuai hari pakai</strong><span>Budget bulanan aman, nggak keluar ratusan ribu sekaligus.</span></div></li>
+            <li><span class="ic"><svg class="icon"><use href="#i-chat"/></svg></span><div><strong>Pesan cukup lewat chat</strong><span>Klik pesan, format pesanan otomatis terisi di WhatsApp.</span></div></li>
+            <li><span class="ic"><svg class="icon"><use href="#i-cap"/></svg></span><div><strong>Dipilih buat kelas CS</strong><span>Sesuai alat ujian, praktikum lab, dan tugas Computer Science BINUS.</span></div></li>
+          </ul>
+        </div>
+        <div>
+          <table class="compare-table">
+            <thead><tr><th scope="col">Kebutuhan</th><th scope="col">Beli baru</th><th scope="col">Sewa<span class="th-long"> di MahaSewa</span></th></tr></thead>
+            <tbody>
+              <tr><td>Kalkulator scientific<small>3 hari minggu ujian</small></td><td class="buy">±Rp250.000</td><td class="rent">Rp45.000</td></tr>
+              <tr><td>Adapter USB-C ke HDMI<small>1 hari presentasi</small></td><td class="buy">±Rp300.000</td><td class="rent">Rp10.000</td></tr>
+              <tr><td>Presentation clicker<small>1 hari sidang project</small></td><td class="buy">±Rp150.000</td><td class="rent">Rp15.000</td></tr>
+            </tbody>
+          </table>
+          <p class="compare-note">Harga beli adalah perkiraan harga pasaran.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- KATALOG -->
+    <section class="section catalog" id="katalog">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Mau sewa apa hari ini?</h2>
+          <p>Status di katalog adalah gambaran awal. Ketersediaan akhir dikonfirmasi lewat WhatsApp.</p>
+        </div>
+
+        <div class="catalog-tools">
+          <div class="search">
+            <label for="q" class="visually-hidden">Cari barang</label>
+            <svg class="icon"><use href="#i-search"/></svg>
+            <input id="q" type="search" placeholder="Cari kalkulator, charger, HDMI, webcam…" autocomplete="off">
+            <button class="clear" id="q-clear" type="button" aria-label="Hapus pencarian"><svg class="icon"><use href="#i-x"/></svg></button>
+          </div>
+          <span class="result-count" id="count" aria-live="polite"></span>
+        </div>
+
+        <div class="chips" id="chips" role="group" aria-label="Filter kategori"></div>
+
+        <div class="grid" id="grid"></div>
+
+        <div class="empty" id="empty">
+          <h3>Barang nggak ketemu</h3>
+          <p>Coba kata kunci lain, atau tanya langsung. Bisa jadi barangnya ada tapi belum masuk katalog.</p>
+          <button class="btn btn-ghost" type="button" id="reset">Tampilkan semua barang</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAKET -->
+    <section class="section" id="paket">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Paket hemat</h2>
+          <p>Beberapa barang yang biasanya dipakai bareng, harganya lebih murah daripada sewa satuan.</p>
+        </div>
+        <div class="bundles" id="bundles"></div>
+      </div>
+    </section>
+
+    <!-- CARA SEWA -->
+    <section class="section steps-sec" id="cara-sewa">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Cara sewa</h2>
+          <p>Kurang dari semenit buat pesan.</p>
+        </div>
+        <ol class="steps">
+          <li><h3>Cari barang</h3><p>Pilih dari katalog atau cari pakai kata kunci.</p></li>
+          <li><h3>Cek detail</h3><p>Lihat harga, isi kelengkapan, dan atur durasi sewa.</p></li>
+          <li><h3>Pesan lewat WhatsApp</h3><p>Pesanan otomatis terformat, tinggal isi nama dan BINUSIAN ID.</p></li>
+          <li><h3>Ambil & kembalikan</h3><p>Waktu dan lokasi di area BINUS diatur bareng lewat chat.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- TENTANG + FAQ -->
+    <section class="section" id="tentang">
+      <div class="wrap about-faq">
+        <div class="about">
+          <h2>Dibuat sama mahasiswa, buat mahasiswa CS.</h2>
+          <p>MahaSewa hadir supaya mahasiswa bisa dapat perlengkapan akademik tanpa harus beli barang yang cuma dipakai sebentar.</p>
+          <p>Kami percaya urusan kuliah bisa beres dengan lebih praktis dan hemat.</p>
+          <div class="about-points">
+            <span>Fokus CS BINUS</span>
+            <span>Respon cepat</span>
+            <span>Barang terawat & normal</span>
+          </div>
+        </div>
+        <div class="faq" id="faq">
+          <h2>Pertanyaan yang sering masuk</h2>
+          <div id="faq-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <div class="wrap cta-inner">
+      <div>
+        <h2>Masih bingung butuh barang apa?</h2>
+        <p>Ceritain tugasnya, kami bantu cariin perlengkapan yang pas.</p>
+      </div>
+      <a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/6287883393238?text=Halo%20MahaSewa%2C%20saya%20ingin%20bertanya%20mengenai%20penyewaan%20barang.">
+        <svg class="icon"><use href="#i-wa"/></svg>
+        Chat WhatsApp
       </a>
-    </li>
-
-    <li class="flex items-center gap-2">
-      <i class="fa-brands fa-instagram text-pink-400"></i>
-      <a href="https://www.instagram.com/rentforbinus/" target="_blank" rel="noopener noreferrer"
-         class="hover:text-white transition-colors">
-        @rentforbinus
-      </a>
-    </li>
-
-    <li class="flex items-center gap-2">
-      <i class="fa-solid fa-location-dot text-binus"></i>
-      <span>Area BINUS University</span>
-    </li>
-  </ul>
-</div>
-      </div>
-
-      <!-- Copyright -->
-      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-        <p>&copy; 2026 MahaSewa. All rights reserved.</p>
-        <p>Built for BINUSIAN Computer Science Students</p>
-      </div>
-
-    </div>
-  </footer>
-
-  <!-- PRODUCT DETAIL MODAL -->
-  <div id="product-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="modal-content bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-slate-100 overflow-hidden relative" onclick="event.stopPropagation()">
-      
-      <!-- Close Button -->
-      <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 flex items-center justify-center transition-colors">
-        <i class="fa-solid fa-xmark text-lg"></i>
-      </button>
-
-      <!-- Modal Content Body -->
-      <div id="modal-body">
-        <!-- JS dynamic content -->
-      </div>
-
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <a href="#home" class="brand" aria-label="MahaSewa, ke atas">
+            <svg aria-hidden="true" style="width:34px;height:34px"><use href="#mark"/></svg>
+            <span class="brand-name"><span class="maha">Maha</span><span class="sewa">Sewa</span></span>
+          </a>
+          <p>Sewa perlengkapan akademik untuk mahasiswa BINUS. Buat ujian, praktikum, dan presentasi.</p>
+        </div>
+        <div>
+          <h4>Menu</h4>
+          <ul>
+            <li><a href="#katalog">Katalog barang</a></li>
+            <li><a href="#paket">Paket hemat</a></li>
+            <li><a href="#cara-sewa">Cara sewa</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Hubungi kami</h4>
+          <ul>
+            <li><a href="https://wa.me/6287883393238" target="_blank" rel="noopener">WhatsApp +62 878 8339 3238</a></li>
+            <li><a href="https://www.instagram.com/rentforbinus/" target="_blank" rel="noopener">Instagram @rentforbinus</a></li>
+            <li>Area BINUS University</li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 MahaSewa</span>
+        <span>Dibuat untuk BINUSIAN Computer Science</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DETAIL DIALOG -->
+  <dialog id="detail" aria-labelledby="d-title"></dialog>
+
   <script>
-    // Target WhatsApp Number
     const WA_NUMBER = "6287883393238";
 
-    // Standardized Central Product Database (20 high-fidelity items)
     const products = [
-      {
-        id: 1,
-        name: "Kalkulator Scientific",
-        category: "Ujian",
-        price: "Rp15.000/hari",
-        rawPrice: 15000,
+      { id: 1, name: "Kalkulator Scientific", category: "Ujian", price: "Rp15.000/hari", rawPrice: 15000,
         image: "https://www.mrprice.online/cdn/shop/files/mrprice-online-back-to-school-default-title-casio-fx85gtcw-white-scientific-calculator-54242329919824_1200x.jpg?v=1775660404",
         description: "Kalkulator Casio scientific presisi untuk ujian matematika, kalkulus, dan statistika CS.",
         usage: ["Ujian Matematika & Statistika", "Kalkulus & Discrete Math", "Praktikum Computations"],
         packageIncludes: ["1x Unit Kalkulator Scientific", "Pelindung Hardcase Case"],
-        terms: "Tersedia mode statistik & matriks standard BINUS.",
-        availability: true,
-        popular: true
-      },
-      {
-        id: 2,
-        name: "Kalkulator Basic",
-        category: "Ujian",
-        price: "Rp8.000/hari",
-        rawPrice: 8000,
+        terms: "Tersedia mode statistik & matriks standard BINUS.", availability: true, popular: true },
+      { id: 2, name: "Kalkulator Basic", category: "Ujian", price: "Rp8.000/hari", rawPrice: 8000,
         image: "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?auto=format&fit=crop&w=600&q=80",
         description: "Kalkulator meja 12-digit sederhana untuk perhitungan cepat hitungan dasar saat ujian.",
         usage: ["Ujian Umum non-scientific", "Akuntansi Dasar", "Perhitungan cepat"],
         packageIncludes: ["1x Unit Kalkulator Basic"],
-        terms: "Layar jernih & tombol responsif.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 3,
-        name: "Presentation Clicker",
-        category: "Presentasi",
-        price: "Rp15.000/hari",
-        rawPrice: 15000,
+        terms: "Layar jernih & tombol responsif.", availability: true, popular: false },
+      { id: 3, name: "Presentation Clicker", category: "Presentasi", price: "Rp15.000/hari", rawPrice: 15000,
         image: "https://jgsuperstore.com/cdn/shop/files/ac476b518371405f00ec81f2cc87b54c.jpg?v=1746169078&width=416",
         description: "Wireless presenter remote dengan laser pointer merah untuk kelancaran presentasi slide.",
         usage: ["Presentasi Thesis / Skripsi", "Presentasi Project Kelompok", "Seminar"],
         packageIncludes: ["1x Wireless Clicker", "1x USB Receiver Nano", "Baterai AAA Terpasang"],
-        terms: "Jangkauan sinyal wireless hingga 15 meter.",
-        availability: true,
-        popular: true
-      },
-      {
-        id: 4,
-        name: "USB-C to HDMI Adapter",
-        category: "Presentasi",
-        price: "Rp10.000/hari",
-        rawPrice: 10000,
+        terms: "Jangkauan sinyal wireless hingga 15 meter.", availability: true, popular: true },
+      { id: 4, name: "USB-C to HDMI Adapter", category: "Presentasi", price: "Rp10.000/hari", rawPrice: 10000,
         image: "https://p16-oec-sg.ibyteimg.com/tos-alisg-i-aphluv4xwc-sg/1fe87537487548f2bcc7e8b6bf973b00~tplv-aphluv4xwc-resize-webp:800:705.webp?dr=15592&t=555f072d&ps=933b5bde&shp=8dbd94bf&shcp=e1be8f53&idc=my&from=2378011839",
         description: "Converter USB Type-C ke HDMI resolusi 4K untuk menghubungkan laptop ke proyektor kelas.",
         usage: ["Presentasi di Kelas", "Connect ke Monitor/TV", "Sidang Project"],
         packageIncludes: ["1x USB-C to HDMI Adapter"],
-        terms: "Plug & Play tanpa driver tambahan.",
-        availability: true,
-        popular: true
-      },
-      {
-        id: 5,
-        name: "HDMI Cable",
-        category: "Presentasi",
-        price: "Rp8.000/hari",
-        rawPrice: 8000,
+        terms: "Plug & Play tanpa driver tambahan.", availability: true, popular: true },
+      { id: 5, name: "HDMI Cable", category: "Presentasi", price: "Rp8.000/hari", rawPrice: 8000,
         image: "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/cables/dell-hdmi-2-0-cable-cb325h/media-gallery/cable-dell-cb325h-bk-gallery-1.psd?qlt=95&fit=constrain,1&hei=630&wid=1200&fmt=jpg",
         description: "Kabel HDMI High Speed 1.5 Meter dengan pelindung braided nylon anti tertekuk.",
         usage: ["Hubungkan Laptop ke Proyektor BINUS", "Dual Screen Monitor"],
         packageIncludes: ["1x Kabel HDMI 1.5m"],
-        terms: "Mendukung resolusi Full HD 1080p & 4K.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 6,
-        name: "USB-C Hub",
-        category: "Laptop & Gadget",
-        price: "Rp15.000/hari",
-        rawPrice: 15000,
+        terms: "Mendukung resolusi Full HD 1080p & 4K.", availability: true, popular: false },
+      { id: 6, name: "USB-C Hub", category: "Laptop & Gadget", price: "Rp15.000/hari", rawPrice: 15000,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn48SCQBkXfCT7qjmOdmpqSeBPyh58xtMfALIV7_3z8MBgfWo17e_a1XQO&s=10",
         description: "Multiport Type-C Hub 7-in-1 dilengkapi port HDMI, USB 3.0, SD Card slot, dan USB-C PD.",
         usage: ["MacBook User", "Praktikum multi-device", "Transfer File Kamera"],
         packageIncludes: ["1x USB-C Multiport Hub"],
-        terms: "High speed data transfer & charging support.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 7,
-        name: "USB Hub",
-        category: "Laptop & Gadget",
-        price: "Rp10.000/hari",
-        rawPrice: 10000,
+        terms: "High speed data transfer & charging support.", availability: true, popular: false },
+      { id: 7, name: "USB Hub", category: "Laptop & Gadget", price: "Rp10.000/hari", rawPrice: 10000,
         image: "https://els.id/wp-content/uploads/2024/09/USB-Hub-4-Port-OTG-Adapter-Vention-CKPHB-7.jpg",
         description: "USB 3.0 Hub 4 Port untuk menambah slot USB laptop saat butuh mouse, flashdisk, dan dongle.",
         usage: ["Tambah Port USB Laptop", "Praktikum Hardware/IoT"],
         packageIncludes: ["1x USB 3.0 4-Port Hub"],
-        terms: "Kompatibel Windows & macOS.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 8,
-        name: "LAN Cable",
-        category: "Praktikum",
-        price: "Rp5.000/hari",
-        rawPrice: 5000,
+        terms: "Kompatibel Windows & macOS.", availability: true, popular: false },
+      { id: 8, name: "LAN Cable", category: "Praktikum", price: "Rp5.000/hari", rawPrice: 5000,
         image: "https://unnotekno.com/wp-content/uploads/2022/10/CB4310GY-CAT6-Ethernet-Patch-Cord-10ft-5-3.jpg",
         description: "Kabel Ethernet Cat6 High Speed 2 Meter untuk praktikum jaringan komputer di lab.",
         usage: ["Praktikum Computer Network", "Ujian Lab Terhubung Server", "Koneksi Stabil Low-Latency"],
         packageIncludes: ["1x Kabel LAN Cat6 2m"],
-        terms: "Mendukung transmisi data Gigabit Ethernet.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 9,
-        name: "USB to Ethernet Adapter",
-        category: "Praktikum",
-        price: "Rp10.000/hari",
-        rawPrice: 10000,
+        terms: "Mendukung transmisi data Gigabit Ethernet.", availability: true, popular: false },
+      { id: 9, name: "USB to Ethernet Adapter", category: "Praktikum", price: "Rp10.000/hari", rawPrice: 10000,
         image: "https://api.vitech.asia/storage/produk/ETHERNET_ADAPTER.png",
         description: "Adapter USB ke RJ45 LAN port untuk laptop tipis yang tidak memiliki colokan ethernet.",
         usage: ["Praktikum Lab Jaringan MHS CS", "Koneksi LAN Laptop Slim"],
         packageIncludes: ["1x USB 3.0 to RJ45 Adapter"],
-        terms: "Kecepatan hingga 1000Mbps.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 10,
-        name: "Laptop Charger",
-        category: "Laptop & Gadget",
-        price: "Rp20.000/hari",
-        rawPrice: 20000,
+        terms: "Kecepatan hingga 1000Mbps.", availability: true, popular: false },
+      { id: 10, name: "Laptop Charger", category: "Laptop & Gadget", price: "Rp20.000/hari", rawPrice: 20000,
         image: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=600&q=80",
         description: "Charger USB-C Type-C Fast Charging GaN 65W/100W Universal untuk laptop modern.",
         usage: ["Lupa Bawa Charger Kampus", "Baterai Laptop Drop Pas Tugas"],
         packageIncludes: ["1x Brick Charger Fast Charge", "1x Kabel Type-C 100W"],
-        terms: "Smart power distribution aman untuk baterai.",
-        availability: true,
-        popular: true
-      },
-      {
-        id: 11,
-        name: "Power Bank",
-        category: "Laptop & Gadget",
-        price: "Rp15.000/hari",
-        rawPrice: 15000,
+        terms: "Smart power distribution aman untuk baterai.", availability: true, popular: true },
+      { id: 11, name: "Power Bank", category: "Laptop & Gadget", price: "Rp15.000/hari", rawPrice: 15000,
         image: "https://cdnpro.eraspace.com/media/catalog/product/l/o/loops_powerbank_lumi_10000mah_lp05_black_01.webp",
         description: "Powerbank Kapasitas Besar 20.000mAh dengan fitur Fast Charging 22.5W.",
         usage: ["Kuliah Seharian Tanpa Colokan", "Nugas Luar Kampus"],
         packageIncludes: ["1x Powerbank 20.000mAh", "1x Kabel Short Multi"],
-        terms: "Kondisi baterai penuh terisi.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 12,
-        name: "Extension Cable",
-        category: "Tugas & Project",
-        price: "Rp10.000/hari",
-        rawPrice: 10000,
+        terms: "Kondisi baterai penuh terisi.", availability: true, popular: false },
+      { id: 12, name: "Extension Cable", category: "Tugas & Project", price: "Rp10.000/hari", rawPrice: 10000,
         image: "https://image.astronauts.cloud/product-images/2026/7/15636broco4506f5b4_0e9699aa-e5b0-4a57-b99e-39e847eabfee_900x900.png",
         description: "Kabel Colokan Stop Kontak 3 Socket + USB Port panjang 3 meter untuk nugas kelompok.",
         usage: ["Kerja Kelompok di Kantin/Foyer", "Event / Exhibition Project"],
         packageIncludes: ["1x Kabel Stop Kontak 3m"],
-        terms: "Standard SNI aman tidak panas.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 13,
-        name: "Keyboard",
-        category: "Laptop & Gadget",
-        price: "Rp15.000/hari",
-        rawPrice: 15000,
+        terms: "Standard SNI aman tidak panas.", availability: true, popular: false },
+      { id: 13, name: "Keyboard", category: "Laptop & Gadget", price: "Rp15.000/hari", rawPrice: 15000,
         image: "https://rexus.id/cdn/shop/files/K_278_1_7f24633c-181c-4889-b07d-f737118d131d.png?v=1705659459",
         description: "Keyboard eksternal ergonomis yang nyaman digunakan untuk marathon coding.",
         usage: ["Coding Marathon", "Ngetik Laporan Praktikum"],
         packageIncludes: ["1x Keyboard Eksternal USB/Wireless"],
-        terms: "Tombol responsif & quiet typing.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 14,
-        name: "Mouse",
-        category: "Laptop & Gadget",
-        price: "Rp10.000/hari",
-        rawPrice: 10000,
+        terms: "Tombol responsif & quiet typing.", availability: true, popular: false },
+      { id: 14, name: "Mouse", category: "Laptop & Gadget", price: "Rp10.000/hari", rawPrice: 10000,
         image: "https://pegastore.id/media/product_image/1760430741-hp-400-quiet-wireless-mouse-blac-(1).jpg",
         description: "Wireless Silent Mouse presisi tinggi untuk navigasi cepat dan tenang di perpustakaan.",
         usage: ["Desain UI/UX", "Coding & Navigasi Cepat"],
         packageIncludes: ["1x Wireless Mouse", "1x USB Receiver", "1x Baterai AA"],
-        terms: "Quiet click switches tanpa bising.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 15,
-        name: "Webcam",
-        category: "Video & Online Class",
-        price: "Rp15.000/hari",
-        rawPrice: 15000,
+        terms: "Quiet click switches tanpa bising.", availability: true, popular: false },
+      { id: 15, name: "Webcam", category: "Video & Online Class", price: "Rp15.000/hari", rawPrice: 15000,
         image: "https://techterms.com/img/xl/webcam_706.png",
         description: "Webcam Full HD 1080p dengan built-in microphone & privacy shutter untuk kelas online/GSLC.",
         usage: ["Ujian Online GSLC", "Presentasi Video Project", "Zoom / Teams Meeting"],
         packageIncludes: ["1x Webcam 1080p USB"],
-        terms: "Autofocus & penyesuaian cahaya otomatis.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 16,
-        name: "Headset + Microphone",
-        category: "Video & Online Class",
-        price: "Rp15.000/hari",
-        rawPrice: 15000,
+        terms: "Autofocus & penyesuaian cahaya otomatis.", availability: true, popular: false },
+      { id: 16, name: "Headset + Microphone", category: "Video & Online Class", price: "Rp15.000/hari", rawPrice: 15000,
         image: "https://m.media-amazon.com/images/I/612GLi06mbL.jpg",
         description: "Headset dengan mikrofon peredam bising (noise cancelling) untuk kejelasan suara.",
         usage: ["Kelas Online GSLC", "Listening Test English", "Record Voiceover Video"],
         packageIncludes: ["1x Headset Studio", "1x Adapter Audio Jack Splitter"],
-        terms: "Busa earcup empuk dan nyaman.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 17,
-        name: "USB Microphone",
-        category: "Video & Online Class",
-        price: "Rp20.000/hari",
-        rawPrice: 20000,
+        terms: "Busa earcup empuk dan nyaman.", availability: true, popular: false },
+      { id: 17, name: "USB Microphone", category: "Video & Online Class", price: "Rp20.000/hari", rawPrice: 20000,
         image: "https://m.media-amazon.com/images/I/71j77AKIgQL.jpg",
         description: "Microphone Condenser USB Kualitas Podcasting untuk rekaman tugas video & pitch deck.",
         usage: ["Tugas Video Kampus", "Voiceover Animasi / Project"],
         packageIncludes: ["1x USB Condenser Mic", "1x Stand Tripod", "1x Cable USB"],
-        terms: "Suara jernih bulat tanpa background noise.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 18,
-        name: "Portable Monitor",
-        category: "Tugas & Project",
-        price: "Rp40.000/hari",
-        rawPrice: 40000,
+        terms: "Suara jernih bulat tanpa background noise.", availability: true, popular: false },
+      { id: 18, name: "Portable Monitor", category: "Tugas & Project", price: "Rp40.000/hari", rawPrice: 40000,
         image: "https://uperfect.com/cdn/shop/files/uperfect-4k-portable-monitor-15-6-156a17_8.png?v=1708330469",
         description: "Monitor Portable 15.6 Inch Full HD IPS Type-C/HDMI untuk dual screen kodingan.",
         usage: ["Koding Dual Monitor di Perpus", "Demo Project", "UI Testing"],
         packageIncludes: ["1x Portable Monitor 15.6\"", "1x Cover Stand", "Kabel Type-C & HDMI"],
-        terms: "Slim, ringan & gampang dibawa.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 19,
-        name: "Tripod HP",
-        category: "Video & Online Class",
-        price: "Rp10.000/hari",
-        rawPrice: 10000,
+        terms: "Slim, ringan & gampang dibawa.", availability: true, popular: false },
+      { id: 19, name: "Tripod HP", category: "Video & Online Class", price: "Rp10.000/hari", rawPrice: 10000,
         image: "https://fujishop.id/wp-content/uploads/2023/05/Takara-ECO-233A-Tripod-Kamera-HP-holder-01.jpg",
         description: "Tripod Smartphone tinggi fleksibel hingga 1.3 Meter lengkap dengan U-Holder.",
         usage: ["Rekam Video Tugas Presentasi", "Live Streaming", "Foto Kelompok"],
         packageIncludes: ["1x Tripod Extendable", "1x Phone Holder U"],
-        terms: "Kokoh dan tidak mudah terbalik.",
-        availability: true,
-        popular: false
-      },
-      {
-        id: 20,
-        name: "Ring Light",
-        category: "Video & Online Class",
-        price: "Rp15.000/hari",
-        rawPrice: 15000,
+        terms: "Kokoh dan tidak mudah terbalik.", availability: true, popular: false },
+      { id: 20, name: "Ring Light", category: "Video & Online Class", price: "Rp15.000/hari", rawPrice: 15000,
         image: "https://www.pondoklensa.com/files/photo/web/product/lg/7e96f7f24a095d597db5d10ec9685da4_1700470311.jpg",
         description: "Ringlight LED 26cm dengan 3 mode warna cahaya & pengatur tingkat kecerahan.",
         usage: ["Penerangan Rekaman Tugas Video", "Online Presentation GSLC"],
         packageIncludes: ["1x Ringlight 26cm", "1x Ballhead Mount", "Kabel Power USB"],
-        terms: "3 Mode Cahaya: Warm, White, Natural.",
-        availability: true,
-        popular: false
-      }
+        terms: "3 Mode Cahaya: Warm, White, Natural.", availability: true, popular: false }
     ];
 
-    // Rental Bundles Data
     const packages = [
-      {
-        id: "pkg-1",
-        name: "EXAM KIT",
-        items: ["Scientific Calculator", "Laptop Charger"],
-        price: "25.000/hari",
-        saveBadge: "Hemat Rp10.000",
-        icon: "fa-solid fa-graduation-cap",
-        color: "bg-blue-50 text-binus border-blue-200"
-      },
-      {
-        id: "pkg-2",
-        name: "PRESENTATION KIT",
-        items: ["Presentation Clicker", "USB-C HDMI Adapter", "HDMI Cable"],
-        price: "Rp25.000/hari",
-        saveBadge: "Hemat Rp8.000",
-        icon: "fa-solid fa-person-chalkboard",
-        color: "bg-emerald-50 text-emerald-600 border-emerald-200"
-      },
-      {
-        id: "pkg-3",
-        name: "ONLINE PRESENTATION KIT",
-        items: ["Webcam", "Headset + Microphone", "Ring Light"],
-        price: "Rp35.000/hari",
-        saveBadge: "Hemat Rp10.000",
-        icon: "fa-solid fa-video",
-        color: "bg-amber-50 text-amber-600 border-amber-200"
-      },
-      {
-        id: "pkg-4",
-        name: "PROJECT KIT",
-        items: ["USB Hub", "Extension Cable", "HDMI Adapter"],
-        price: "Rp25.000/hari",
-        saveBadge: "Hemat Rp5.000",
-        icon: "fa-solid fa-laptop-code",
-        color: "bg-purple-50 text-purple-600 border-purple-200"
-      }
+      { name: "Exam Kit", items: ["Kalkulator Scientific", "Laptop Charger"], price: 25000, save: 10000 },
+      { name: "Presentation Kit", items: ["Presentation Clicker", "USB-C to HDMI Adapter", "HDMI Cable"], price: 25000, save: 8000 },
+      { name: "Online Presentation Kit", items: ["Webcam", "Headset + Microphone", "Ring Light"], price: 35000, save: 10000 },
+      { name: "Project Kit", items: ["USB Hub", "Extension Cable", "USB-C to HDMI Adapter"], price: 25000, save: 5000 }
     ];
 
-    // FAQ Accordion Data
     const faqs = [
-      {
-        q: "Siapa yang bisa menyewa?",
-        a: "Saat ini layanan ditujukan khusus untuk mahasiswa Computer Science BINUS. Cukup tunjukkan BINUSIAN ID aktif kamu saat proses pengambilan."
-      },
-      {
-        q: "Berapa lama barang dapat disewa?",
-        a: "Durasi dapat disesuaikan dengan kebutuhan dan ketersediaan barang. Mulai dari sewa harian (1 hari) hingga beberapa hari minggu ujian."
-      },
-      {
-        q: "Bagaimana cara mengambil barang?",
-        a: "Lokasi dan waktu pengambilan akan dikonfirmasi melalui WhatsApp setelah kamu menekan tombol 'Sewa Sekarang'."
-      },
-      {
-        q: "Bagaimana jika barang rusak?",
-        a: "Penyewa bertanggung jawab terhadap barang selama masa penyewaan sesuai syarat dan ketentuan yang berlaku."
-      },
-      {
-        q: "Apakah perlu deposit?",
-        a: "Deposit dapat diberlakukan untuk barang tertentu dan akan diinformasikan secara transparan sebelum transaksi dikonfirmasi."
-      },
-      {
-        q: "Bagaimana mengecek ketersediaan barang?",
-        a: "Status awal dapat dilihat melalui katalog ini, dan ketersediaan akhir real-time dikonfirmasi melalui WhatsApp."
-      }
+      { q: "Siapa yang bisa menyewa?", a: "Saat ini layanan ditujukan khusus untuk mahasiswa Computer Science BINUS. Cukup tunjukkan BINUSIAN ID aktif kamu saat proses pengambilan." },
+      { q: "Berapa lama barang dapat disewa?", a: "Durasi dapat disesuaikan dengan kebutuhan dan ketersediaan barang. Mulai dari sewa harian (1 hari) hingga beberapa hari minggu ujian." },
+      { q: "Bagaimana cara mengambil barang?", a: "Lokasi dan waktu pengambilan akan dikonfirmasi melalui WhatsApp setelah kamu menekan tombol pesan." },
+      { q: "Bagaimana jika barang rusak?", a: "Penyewa bertanggung jawab terhadap barang selama masa penyewaan sesuai syarat dan ketentuan yang berlaku." },
+      { q: "Apakah perlu deposit?", a: "Deposit dapat diberlakukan untuk barang tertentu dan akan diinformasikan secara transparan sebelum transaksi dikonfirmasi." },
+      { q: "Bagaimana mengecek ketersediaan barang?", a: "Status awal dapat dilihat melalui katalog ini, dan ketersediaan akhir real-time dikonfirmasi melalui WhatsApp." }
     ];
 
-    // Application State
-    let activeCategory = "Semua";
-    let searchQuery = "";
+    const categories = ["Semua", "Ujian", "Presentasi", "Laptop & Gadget", "Praktikum", "Tugas & Project", "Video & Online Class"];
 
-    const categories = [
-      "Semua",
-      "Ujian",
-      "Presentasi",
-      "Laptop & Gadget",
-      "Praktikum",
-      "Tugas & Project",
-      "Video & Online Class"
-    ];
+    // ---------- Helpers ----------
+    const $ = (s, el = document) => el.querySelector(s);
+    const rupiah = n => "Rp" + n.toLocaleString("id-ID");
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const fmtDate = d => d.toLocaleDateString("id-ID", { weekday: "short", day: "numeric", month: "short" });
+    const isoToday = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
+    const addDays = (iso, n) => { const d = new Date(iso + "T00:00:00"); d.setDate(d.getDate() + n); return d; };
 
-    // Fallback Image Handler to prevent broken icons
-    function handleImageError(img, productName) {
-      img.onerror = null; // Prevent loop
-      const parent = img.parentElement;
-      if (parent) {
-        parent.classList.remove('img-skeleton');
-      }
-      // Create SVG fallback with clean icon
-      const svgData = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 200 150" fill="none">
-          <rect width="200" height="150" fill="#F1F5F9"/>
-          <rect x="70" y="45" width="60" height="60" rx="12" fill="#E2E8F0"/>
-          <path d="M90 65H110M90 75H110M90 85H102" stroke="#0054A6" stroke-width="4" stroke-linecap="round"/>
-          <text x="100" y="122" font-family="sans-serif" font-size="10" font-weight="600" fill="#64748B" text-anchor="middle">${productName}</text>
-        </svg>
-      `;
-      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgData);
+    function fallbackImg(img) {
+      img.onerror = null;
+      const name = img.alt || "Barang";
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#F6F8FC"/><rect x="70" y="62" width="60" height="60" rx="14" fill="#E4E9F2"/><path d="M88 84h24M88 94h24M88 104h14" stroke="#2449B0" stroke-width="4" stroke-linecap="round"/><text x="100" y="148" font-family="sans-serif" font-size="12" font-weight="600" fill="#7A869D" text-anchor="middle">${esc(name)}</text></svg>`;
+      img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      renderCategoryFilters();
-      renderProducts();
-      renderPopularItems();
-      renderPackages();
-      renderFAQs();
-      setupEventListeners();
-      initScrollAnimations();
-      setupNavbarEffect();
-    });
+    function openWA(lines) {
+      window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
+    }
 
-    // Sticky Navbar Scroll Effect
-    function setupNavbarEffect() {
-      const navbar = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
+    // Nama & BINUSIAN ID diingat antar form (slip <-> detail)
+    const renter = { name: "", nim: "" };
+    try { Object.assign(renter, JSON.parse(localStorage.getItem("mahasewa-renter") || "{}")); } catch (e) {}
+    function saveRenter(name, nim) {
+      renter.name = name.trim(); renter.nim = nim.trim();
+      try { localStorage.setItem("mahasewa-renter", JSON.stringify(renter)); } catch (e) {}
+    }
+
+    function orderItem(p, days, startIso) {
+      const ret = addDays(startIso, days);
+      openWA([
+        "Halo MahaSewa",
+        "",
+        "Saya ingin menyewa barang berikut:",
+        "",
+        `Barang: ${p.name}`,
+        `Harga sewa: ${p.price}`,
+        `Durasi: ${days} hari`,
+        `Mulai sewa: ${fmtDate(new Date(startIso + "T00:00:00"))}`,
+        `Kembali: ${fmtDate(ret)}`,
+        `Estimasi total: ${rupiah(p.rawPrice * days)}`,
+        "",
+        `Nama: ${renter.name}`,
+        `BINUSIAN ID: ${renter.nim}`,
+        "",
+        "Apakah barang tersebut masih tersedia?",
+        "",
+        "Terima kasih."
+      ]);
+    }
+
+    function orderPackage(pkg) {
+      openWA([
+        "Halo MahaSewa",
+        "",
+        "Saya ingin menyewa paket berikut:",
+        "",
+        `Paket: ${pkg.name} (${pkg.items.join(", ")})`,
+        `Harga sewa: ${rupiah(pkg.price)}/hari`,
+        "",
+        "Nama:",
+        "BINUSIAN ID:",
+        "Tanggal Sewa:",
+        "Durasi Sewa:",
+        "",
+        "Apakah paket tersebut masih tersedia?",
+        "",
+        "Terima kasih."
+      ]);
+    }
+
+    // ---------- Stepper (shared by slip + dialog) ----------
+    function bindStepper(root, onChange, initial = 1) {
+      let days = initial;
+      const out = root.querySelector("output");
+      const render = () => { out.textContent = `${days} hari`; onChange(days); };
+      root.addEventListener("click", e => {
+        const b = e.target.closest("[data-step]");
+        if (!b) return;
+        days = Math.min(14, Math.max(1, days + Number(b.dataset.step)));
+        render();
+      });
+      render();
+      return () => days;
+    }
+
+    // ---------- Loan slip ----------
+    function initSlip() {
+      const sel = $("#slip-item"), start = $("#slip-start");
+      sel.innerHTML = products.map(p => `<option value="${p.id}">${esc(p.name)} (${rupiah(p.rawPrice)})</option>`).join("");
+      start.value = start.min = isoToday();
+      const d = new Date();
+      $("#slip-no").innerHTML = `No. MS-${String(d.getDate()).padStart(2, "0")}${String(d.getMonth() + 1).padStart(2, "0")}<br>${d.toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}`;
+
+      let getDays;
+      const update = () => {
+        const p = products.find(x => x.id === Number(sel.value));
+        const days = getDays ? getDays() : 1;
+        $("#slip-rate").textContent = `${rupiah(p.rawPrice)} × ${days} hari`;
+        $("#slip-sub").textContent = rupiah(p.rawPrice * days);
+        $("#slip-return").textContent = fmtDate(addDays(start.value || isoToday(), days));
+        $("#slip-total").textContent = rupiah(p.rawPrice * days);
+      };
+      getDays = bindStepper($("#slip .stepper"), update);
+      sel.addEventListener("change", update);
+      start.addEventListener("change", update);
+      $("#slip-name").value = renter.name; $("#slip-nim").value = renter.nim;
+      $("#slip").addEventListener("submit", e => {
+        e.preventDefault();
+        saveRenter($("#slip-name").value, $("#slip-nim").value);
+        orderItem(products.find(x => x.id === Number(sel.value)), getDays(), start.value || isoToday());
       });
     }
 
-    // IntersectionObserver for Subtle Scroll Reveal
-    function initScrollAnimations() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      }, {
-        threshold: 0.1
-      });
+    // ---------- Catalog ----------
+    let activeCat = "Semua", query = "";
 
-      document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
+    function renderChips() {
+      $("#chips").innerHTML = categories.map(c => {
+        const n = c === "Semua" ? products.length : products.filter(p => p.category === c).length;
+        return `<button class="chip" type="button" data-cat="${esc(c)}" aria-pressed="${c === activeCat}">${esc(c)}<span class="n">${n}</span></button>`;
+      }).join("");
     }
 
-    // Render Category Filter Tabs
-    function renderCategoryFilters() {
-      const container = document.getElementById('category-filters');
-      container.innerHTML = categories.map(cat => {
-        const isActive = cat === activeCategory;
-        return `
-          <button onclick="setCategory('${cat}')" 
-                  class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all ${
-                    isActive 
-                      ? 'bg-binus text-white shadow-md shadow-binus/20 scale-105' 
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-800'
-                  }">
-            ${cat}
+    function renderGrid() {
+      const q = query.toLowerCase();
+      const list = products
+        .filter(p => (activeCat === "Semua" || p.category === activeCat) &&
+          (p.name + " " + p.description + " " + p.category).toLowerCase().includes(q))
+        .sort((a, b) => b.popular - a.popular);
+
+      $("#count").textContent = `${list.length} barang`;
+      $("#empty").classList.toggle("show", list.length === 0);
+      $("#grid").innerHTML = list.map(p => `
+        <article class="item">
+          <button class="item-img" type="button" data-open="${p.id}" aria-label="Lihat detail ${esc(p.name)}">
+            ${p.popular ? `<span class="item-tag">Paling dicari</span>` : ""}
+            <img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" onerror="fallbackImg(this)">
           </button>
-        `;
-      }).join('');
-    }
-
-    // Category Filter Trigger
-    function setCategory(cat) {
-      activeCategory = cat;
-      document.getElementById('active-filter-label').innerText = `Filter: ${cat}`;
-      renderCategoryFilters();
-      renderProducts();
-    }
-
-    // Render Popular Products
-    function renderPopularItems() {
-      const container = document.getElementById('popular-items-grid');
-      const popularProducts = products.filter(p => p.popular);
-      
-      container.innerHTML = popularProducts.map(product => `
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm product-card flex flex-col justify-between h-full group">
-          <div>
-            <!-- Standardized Image Frame -->
-            <div class="product-image-container img-skeleton mb-4">
-              <span class="absolute top-2 left-2 z-10 bg-amber-400 text-binus-navy font-bold text-[10px] px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
-                <i class="fa-solid fa-fire text-[9px]"></i> Popular
-              </span>
-              <img src="${product.image}" 
-                   alt="${product.name}" 
-                   class="product-image"
-                   loading="lazy"
-                   onload="this.parentElement.classList.remove('img-skeleton')"
-                   onerror="handleImageError(this, '${product.name}')">
-            </div>
-            
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="text-[11px] font-bold text-binus uppercase tracking-wider">${product.category}</span>
-              <span class="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">● Tersedia</span>
-            </div>
-
-            <h3 class="font-bold text-binus-navy text-base mb-1.5 line-clamp-title group-hover:text-binus transition-colors">
-              ${product.name}
-            </h3>
-            <p class="text-xs text-slate-500 line-clamp-desc mb-4">
-              ${product.description}
-            </p>
+          <span class="item-cat">${esc(p.category)}</span>
+          <h3>${esc(p.name)}</h3>
+          <p>${esc(p.description)}</p>
+          <div class="item-foot">
+            <span class="price">${rupiah(p.rawPrice)}<small>/hari</small></span>
+            <button class="btn btn-ink" type="button" data-open="${p.id}">Sewa</button>
           </div>
-
-          <div class="border-t border-slate-100 pt-3 mt-auto">
-            <div class="flex items-baseline justify-between mb-3">
-              <span class="text-xs text-slate-400 font-medium">Harga Sewa</span>
-              <span class="text-base font-extrabold text-binus">${product.price}</span>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2">
-              <button onclick="openModal(${product.id})" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition-colors">
-                Detail
-              </button>
-              <button onclick="quickOrder('${product.name}', '${product.price}')" class="w-full py-2.5 bg-binus hover:bg-binus-dark text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5">
-                <i class="fa-brands fa-whatsapp"></i> Sewa
-              </button>
-            </div>
-          </div>
-        </div>
-      `).join('');
+        </article>`).join("");
     }
 
-    // Render Catalog Grid with Smooth Staggering
-    function renderProducts() {
-      const container = document.getElementById('product-grid');
-      const emptyState = document.getElementById('empty-state');
-
-      // Filter Logic
-      const filtered = products.filter(p => {
-        const matchesCategory = activeCategory === "Semua" || p.category === activeCategory;
-        const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                              p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                              p.category.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesCategory && matchesSearch;
+    function initCatalog() {
+      renderChips(); renderGrid();
+      $("#chips").addEventListener("click", e => {
+        const b = e.target.closest("[data-cat]");
+        if (!b) return;
+        activeCat = b.dataset.cat; renderChips(); renderGrid();
       });
-
-      document.getElementById('product-count').innerText = filtered.length;
-
-      if (filtered.length === 0) {
-        container.innerHTML = "";
-        emptyState.classList.remove('hidden');
-        return;
-      } else {
-        emptyState.classList.add('hidden');
-      }
-
-      container.classList.remove('catalog-transition');
-      void container.offsetWidth; // Trigger reflow for animation restart
-      container.classList.add('catalog-transition');
-
-      container.innerHTML = filtered.map(product => `
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm product-card flex flex-col justify-between h-full group">
-          <div>
-            <!-- Standardized Image Frame -->
-            <div class="product-image-container img-skeleton mb-4">
-              ${product.popular ? `
-                <span class="absolute top-2 left-2 z-10 bg-amber-400 text-binus-navy font-bold text-[10px] px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
-                  <i class="fa-solid fa-star text-[9px]"></i> Top Pick
-                </span>
-              ` : ''}
-              
-              <img src="${product.image}" 
-                   alt="${product.name}" 
-                   class="product-image"
-                   loading="lazy"
-                   onload="this.parentElement.classList.remove('img-skeleton')"
-                   onerror="handleImageError(this, '${product.name}')">
-            </div>
-
-            <!-- Meta & Title -->
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="text-[11px] font-bold text-binus uppercase tracking-wider">${product.category}</span>
-              <span class="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
-                ● Tersedia
-              </span>
-            </div>
-
-            <h3 class="font-bold text-binus-navy text-base mb-1.5 line-clamp-title group-hover:text-binus transition-colors">
-              ${product.name}
-            </h3>
-
-            <p class="text-xs text-slate-500 line-clamp-desc mb-4">
-              ${product.description}
-            </p>
-          </div>
-
-          <!-- Bottom Action -->
-          <div class="border-t border-slate-100 pt-3 mt-auto">
-            <div class="flex items-baseline justify-between mb-3">
-              <span class="text-xs text-slate-400 font-medium">Harga Sewa</span>
-              <span class="text-base font-extrabold text-binus">${product.price}</span>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2">
-              <button onclick="openModal(${product.id})" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition-colors">
-                Lihat Detail
-              </button>
-              <button onclick="quickOrder('${product.name}', '${product.price}')" class="w-full py-2.5 bg-binus hover:bg-binus-dark text-white text-xs font-bold rounded-xl shadow-md shadow-binus/20 transition-all flex items-center justify-center gap-1.5">
-                <i class="fa-brands fa-whatsapp text-sm"></i> Sewa
-              </button>
-            </div>
-          </div>
-        </div>
-      `).join('');
+      const q = $("#q"), clear = $("#q-clear");
+      q.addEventListener("input", () => { query = q.value.trim(); clear.classList.toggle("show", !!query); renderGrid(); });
+      clear.addEventListener("click", () => { q.value = ""; query = ""; clear.classList.remove("show"); renderGrid(); q.focus(); });
+      $("#reset").addEventListener("click", () => { q.value = ""; query = ""; activeCat = "Semua"; clear.classList.remove("show"); renderChips(); renderGrid(); });
+      $("#grid").addEventListener("click", e => {
+        const b = e.target.closest("[data-open]");
+        if (b) openDetail(Number(b.dataset.open));
+      });
     }
 
-    // Render Bundles/Packages
-    function renderPackages() {
-      const container = document.getElementById('packages-grid');
-      container.innerHTML = packages.map(pkg => `
-        <div class="reveal-item bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between h-full">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl ${pkg.color} flex items-center justify-center text-lg font-bold border">
-                <i class="${pkg.icon}"></i>
+    // ---------- Detail dialog ----------
+    function openDetail(id) {
+      const p = products.find(x => x.id === id);
+      const dlg = $("#detail");
+      dlg.innerHTML = `
+        <div class="d-grid">
+          <div class="d-img"><img src="${esc(p.image)}" alt="${esc(p.name)}" onerror="fallbackImg(this)"></div>
+          <div class="d-body">
+            <button class="d-close" type="button" aria-label="Tutup"><svg class="icon"><use href="#i-x"/></svg></button>
+            <span class="item-cat">${esc(p.category)}</span>${p.availability ? `<span class="avail">Tersedia</span>` : ""}
+            <h3 id="d-title">${esc(p.name)}</h3>
+            <p>${esc(p.description)}</p>
+            <div class="d-list"><h4>Cocok untuk</h4><ul>${p.usage.map(u => `<li>${esc(u)}</li>`).join("")}</ul></div>
+            ${p.packageIncludes ? `<div class="d-list"><h4>Isi kelengkapan</h4><ul>${p.packageIncludes.map(u => `<li>${esc(u)}</li>`).join("")}</ul></div>` : ""}
+            <div class="d-note">${esc(p.terms)}</div>
+            <form class="d-form" novalidate>
+            <div class="d-fields">
+              <div><label for="d-name">Nama</label><input class="field" id="d-name" type="text" autocomplete="name" placeholder="Nama lengkap" required></div>
+              <div><label for="d-nim">BINUSIAN ID</label><input class="field" id="d-nim" type="text" inputmode="numeric" pattern="[0-9]{8,12}" title="Isi BINUSIAN ID pakai angka saja" placeholder="Angka saja" required></div>
+              <div class="wide"><label for="d-start">Mulai sewa</label><input class="field" id="d-start" type="date" required></div>
+            </div>
+            <div class="d-order">
+              <div class="stepper" role="group" aria-label="Durasi sewa">
+                <button type="button" data-step="-1" aria-label="Kurangi hari">−</button>
+                <output aria-live="polite">1 hari</output>
+                <button type="button" data-step="1" aria-label="Tambah hari">+</button>
               </div>
-              <span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 font-bold text-[10px] rounded-full">
-                ${pkg.saveBadge}
-              </span>
+              <div class="d-total"><small>${rupiah(p.rawPrice)} per hari</small><strong></strong></div>
             </div>
-
-            <h3 class="font-black text-binus-navy text-lg mb-3 tracking-tight">${pkg.name}</h3>
-
-            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Isi Dalam Paket:</p>
-            <ul class="space-y-2 mb-6">
-              ${pkg.items.map(item => `
-                <li class="text-xs text-slate-700 flex items-center gap-2">
-                  <i class="fa-solid fa-check text-emerald-500"></i>
-                  <span>${item}</span>
-                </li>
-              `).join('')}
-            </ul>
-          </div>
-
-          <div class="border-t border-slate-100 pt-4 mt-auto">
-            <div class="flex items-baseline justify-between mb-4">
-              <span class="text-xs text-slate-400 font-medium">Harga Paket</span>
-              <span class="text-lg font-black text-binus">${pkg.price}</span>
-            </div>
-
-            <button onclick="orderPackage('${pkg.name}', '${pkg.price}')" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center gap-2">
-              <i class="fa-brands fa-whatsapp text-base"></i>
-              Sewa Paket
+            <button class="btn btn-wa btn-block" type="submit">
+              <svg class="icon"><use href="#i-wa"/></svg>Pesan lewat WhatsApp
             </button>
+            </form>
           </div>
-        </div>
-      `).join('');
+        </div>`;
+      const total = dlg.querySelector(".d-total strong");
+      const getDays = bindStepper(dlg.querySelector(".stepper"), d => total.textContent = rupiah(p.rawPrice * d));
+      dlg.querySelector(".d-close").onclick = () => dlg.close();
+      const form = dlg.querySelector(".d-form"), dName = $("#d-name", dlg), dNim = $("#d-nim", dlg), dStart = $("#d-start", dlg);
+      dName.value = renter.name; dNim.value = renter.nim;
+      dStart.value = dStart.min = isoToday();
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+        if (!form.reportValidity()) return;
+        saveRenter(dName.value, dNim.value);
+        $("#slip-name").value = renter.name; $("#slip-nim").value = renter.nim;
+        orderItem(p, getDays(), dStart.value || isoToday());
+      });
+      dlg.showModal();
     }
+    $("#detail").addEventListener("click", e => { if (e.target === e.currentTarget) e.currentTarget.close(); });
 
-    // Render FAQ Accordion
-    function renderFAQs() {
-      const container = document.getElementById('faq-accordion');
-      container.innerHTML = faqs.map((faq, index) => `
-        <div class="reveal-item bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm transition-all">
-          <button onclick="toggleFaq(${index})" class="w-full px-6 py-4 text-left font-bold text-binus-navy text-base sm:text-lg flex items-center justify-between gap-4 focus:outline-none">
-            <span>${faq.q}</span>
-            <i class="fa-solid fa-chevron-down text-sm text-slate-400 transition-transform duration-200" id="faq-icon-${index}"></i>
+    // ---------- Bundles ----------
+    function renderBundles() {
+      $("#bundles").innerHTML = packages.map((b, i) => `
+        <div class="bundle">
+          <h3>${esc(b.name)}</h3>
+          <span class="save">Hemat ${rupiah(b.save)} per hari</span>
+          <ul>${b.items.map(it => `<li>${esc(it)}</li>`).join("")}</ul>
+          <div class="bundle-price"><strong>${rupiah(b.price)}</strong><small>/hari</small><s>${rupiah(b.price + b.save)}</s></div>
+          <button class="btn btn-ghost btn-block" type="button" data-pkg="${i}">
+            <svg class="icon" style="color:var(--wa)"><use href="#i-wa"/></svg>Pesan paket
           </button>
-          <div id="faq-ans-${index}" class="hidden px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-100/60 pt-3">
-            ${faq.a}
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // Accordion Toggle Logic
-    function toggleFaq(index) {
-      const ans = document.getElementById(`faq-ans-${index}`);
-      const icon = document.getElementById(`faq-icon-${index}`);
-      
-      const isHidden = ans.classList.contains('hidden');
-      
-      faqs.forEach((_, i) => {
-        document.getElementById(`faq-ans-${i}`)?.classList.add('hidden');
-        document.getElementById(`faq-icon-${i}`)?.classList.remove('rotate-180');
-      });
-
-      if (isHidden) {
-        ans.classList.remove('hidden');
-        icon.classList.add('rotate-180');
-      }
-    }
-
-    // Modal Management with Animations
-    function openModal(productId) {
-      const product = products.find(p => p.id === productId);
-      if (!product) return;
-
-      const modalBody = document.getElementById('modal-body');
-      modalBody.innerHTML = `
-        <div class="p-6">
-          <div class="product-image-container mb-6 bg-slate-50 border border-slate-100">
-            <img src="${product.image}" alt="${product.name}" 
-                 class="product-image"
-                 onerror="handleImageError(this, '${product.name}')">
-          </div>
-
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-extrabold text-binus uppercase tracking-widest">${product.category}</span>
-            <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-              ● Status: Tersedia
-            </span>
-          </div>
-
-          <h3 class="text-2xl font-black text-binus-navy mb-1">${product.name}</h3>
-          <p class="text-xl font-extrabold text-binus mb-4">${product.price}</p>
-
-          <p class="text-sm text-slate-600 leading-relaxed mb-6">
-            ${product.description}
-          </p>
-
-          <div class="space-y-4 mb-6 text-sm">
-            <div>
-              <h4 class="font-bold text-binus-navy mb-1 flex items-center gap-2">
-                <i class="fa-solid fa-bullseye text-binus"></i> Cocok Digunakan Untuk:
-              </h4>
-              <ul class="list-disc list-inside text-slate-600 text-xs space-y-1 pl-1">
-                ${product.usage.map(u => `<li>${u}</li>`).join('')}
-              </ul>
-            </div>
-
-            ${product.packageIncludes ? `
-              <div>
-                <h4 class="font-bold text-binus-navy mb-1 flex items-center gap-2">
-                  <i class="fa-solid fa-box-open text-binus"></i> Isi Kelengkapan:
-                </h4>
-                <ul class="list-disc list-inside text-slate-600 text-xs space-y-1 pl-1">
-                  ${product.packageIncludes.map(i => `<li>${i}</li>`).join('')}
-                </ul>
-              </div>
-            ` : ''}
-
-            <div>
-              <h4 class="font-bold text-binus-navy mb-1 flex items-center gap-2">
-                <i class="fa-solid fa-circle-info text-binus"></i> Ketentuan Singkat:
-              </h4>
-              <p class="text-xs text-slate-500 bg-slate-50 p-3 rounded-xl border border-slate-200">
-                ${product.terms}
-              </p>
-            </div>
-          </div>
-
-          <button onclick="quickOrder('${product.name}', '${product.price}')" 
-                  class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 text-base group">
-            <i class="fa-brands fa-whatsapp text-2xl group-hover:rotate-12 transition-transform"></i>
-            <span>Sewa Sekarang via WhatsApp</span>
-          </button>
-        </div>
-      `;
-
-      const modal = document.getElementById('product-modal');
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('product-modal');
-      modal.classList.add('hidden');
-      document.body.style.overflow = 'auto';
-    }
-
-    // Modal Background Overlay click close
-    document.getElementById('product-modal').addEventListener('click', closeModal);
-
-    // Dynamic WhatsApp URL Generator for Individual Products
-    function quickOrder(productName, productPrice) {
-      const message = `Halo MahaSewa
-
-Saya ingin menyewa barang berikut:
-
- Barang: ${productName}
- Harga Sewa: ${productPrice}
-
-Nama:
-BINUSIAN ID:
-Tanggal Sewa:
-Durasi Sewa:
-
-Apakah barang tersebut masih tersedia?
-
-Terima kasih.`;
-
-      const encodedMessage = encodeURIComponent(message);
-      const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodedMessage}`;
-      window.open(waUrl, '_blank');
-    }
-
-    // Dynamic WhatsApp URL Generator for Rental Packages
-    function orderPackage(packageName, packagePrice) {
-      const message = `Halo MahaSewa
-
-Saya ingin menyewa paket berikut:
-
-Paket: ${packageName}
-Harga Sewa: ${packagePrice}
-
-Nama:
-BINUSIAN ID:
-Tanggal Sewa:
-Durasi Sewa:
-
-Apakah paket tersebut masih tersedia?
-
-Terima kasih.`;
-
-      const encodedMessage = encodeURIComponent(message);
-      const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodedMessage}`;
-      window.open(waUrl, '_blank');
-    }
-
-    // Event Listeners Setup
-    function setupEventListeners() {
-      // Mobile Navigation Menu Toggle
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const menuIcon = document.getElementById('menu-icon');
-
-      mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        if (mobileMenu.classList.contains('hidden')) {
-          menuIcon.className = 'fa-solid fa-bars text-xl';
-        } else {
-          menuIcon.className = 'fa-solid fa-xmark text-xl';
-        }
-      });
-
-      // Close mobile menu when clicking a link
-      document.querySelectorAll('.mobile-link').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-          menuIcon.className = 'fa-solid fa-bars text-xl';
-        });
-      });
-
-      // Realtime Search Engine
-      const searchInput = document.getElementById('search-input');
-      const clearSearchBtn = document.getElementById('clear-search');
-
-      searchInput.addEventListener('input', (e) => {
-        searchQuery = e.target.value.trim();
-        if (searchQuery.length > 0) {
-          clearSearchBtn.classList.remove('hidden');
-        } else {
-          clearSearchBtn.classList.add('hidden');
-        }
-        renderProducts();
-      });
-
-      clearSearchBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        searchQuery = '';
-        clearSearchBtn.classList.add('hidden');
-        renderProducts();
+        </div>`).join("");
+      $("#bundles").addEventListener("click", e => {
+        const b = e.target.closest("[data-pkg]");
+        if (b) orderPackage(packages[Number(b.dataset.pkg)]);
       });
     }
 
-    // Reset All Filters
-    function resetFilters() {
-      searchQuery = '';
-      activeCategory = 'Semua';
-      document.getElementById('search-input').value = '';
-      document.getElementById('clear-search').classList.add('hidden');
-      document.getElementById('active-filter-label').innerText = 'Filter: Semua';
-      renderCategoryFilters();
-      renderProducts();
+    // ---------- FAQ ----------
+    function renderFaq() {
+      $("#faq-list").innerHTML = faqs.map(f => `
+        <details>
+          <summary>${esc(f.q)}<span class="pm" aria-hidden="true"><svg class="icon" style="width:16px;height:16px"><use href="#i-plus"/></svg></span></summary>
+          <p>${esc(f.a)}</p>
+        </details>`).join("");
+      // one open at a time
+      $("#faq-list").addEventListener("toggle", e => {
+        if (!e.target.open) return;
+        $("#faq-list").querySelectorAll("details[open]").forEach(d => { if (d !== e.target) d.open = false; });
+      }, true);
     }
+
+    // ---------- Nav ----------
+    function initNav() {
+      const nav = $("#nav"), btn = $("#menu-btn"), menu = $("#mobile-menu");
+      addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 8), { passive: true });
+      btn.addEventListener("click", () => {
+        const open = menu.classList.toggle("open");
+        btn.setAttribute("aria-expanded", open);
+      });
+      menu.addEventListener("click", e => { if (e.target.closest("a")) { menu.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); } });
+    }
+
+    initSlip(); initCatalog(); renderBundles(); renderFaq(); initNav();
   </script>
 </body>
 </html>
